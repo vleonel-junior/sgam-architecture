@@ -1,0 +1,1222 @@
+[
+    {
+        "config": {
+            "data": {
+                "path": "rtdl_revisiting_models/data/microsoft",
+                "y_policy": "mean_std"
+            },
+            "fit": {
+                "logging_level": "Verbose"
+            },
+            "model": {
+                "bagging_temperature": 0.5488135039273248,
+                "depth": 9,
+                "early_stopping_rounds": 50,
+                "iterations": 1000,
+                "l2_leaf_reg": 4.006483661964395,
+                "leaf_estimation_iterations": 6,
+                "learning_rate": 0.0013130280280658588,
+                "metric_period": 10,
+                "od_pval": 0.001,
+                "task_type": "GPU",
+                "thread_count": 1
+            },
+            "seed": 0
+        },
+        "environment": {
+            "devices": {
+                "CUDA_VISIBLE_DEVICES": "0",
+                "torch.version.cuda": "11.7",
+                "torch.backends.cudnn.version()": 8500,
+                "torch.cuda.nccl.version()": [
+                    2,
+                    14,
+                    3
+                ],
+                "driver": "560.35.03",
+                "0": {
+                    "name": "Tesla P100-PCIE-16GB",
+                    "total_memory": 17179869184
+                }
+            }
+        },
+        "dataset": "microsoft",
+        "algorithm": "catboost_",
+        "metrics": {
+            "train": {
+                "rmse": 0.7621262782238165,
+                "score": -0.7621262782238165
+            },
+            "val": {
+                "rmse": 0.7732566304999196,
+                "score": -0.7732566304999196
+            },
+            "test": {
+                "rmse": 0.774549077938789,
+                "score": -0.774549077938789
+            }
+        },
+        "time": "0:00:35",
+        "trial_id": 0,
+        "tuning_time": "0:00:40"
+    },
+    {
+        "config": {
+            "data": {
+                "path": "rtdl_revisiting_models/data/microsoft",
+                "y_policy": "mean_std"
+            },
+            "fit": {
+                "logging_level": "Verbose"
+            },
+            "model": {
+                "bagging_temperature": 0.6458941130666561,
+                "depth": 8,
+                "early_stopping_rounds": 50,
+                "iterations": 1000,
+                "l2_leaf_reg": 7.79422611516095,
+                "leaf_estimation_iterations": 10,
+                "learning_rate": 0.0008264328927007723,
+                "metric_period": 10,
+                "od_pval": 0.001,
+                "task_type": "GPU",
+                "thread_count": 1
+            },
+            "seed": 0
+        },
+        "environment": {
+            "devices": {
+                "CUDA_VISIBLE_DEVICES": "0",
+                "torch.version.cuda": "11.7",
+                "torch.backends.cudnn.version()": 8500,
+                "torch.cuda.nccl.version()": [
+                    2,
+                    14,
+                    3
+                ],
+                "driver": "560.35.03",
+                "0": {
+                    "name": "Tesla P100-PCIE-16GB",
+                    "total_memory": 17179869184
+                }
+            }
+        },
+        "dataset": "microsoft",
+        "algorithm": "catboost_",
+        "metrics": {
+            "train": {
+                "rmse": 0.7751666562198641,
+                "score": -0.7751666562198641
+            },
+            "val": {
+                "rmse": 0.7851811047906029,
+                "score": -0.7851811047906029
+            },
+            "test": {
+                "rmse": 0.7865987774354813,
+                "score": -0.7865987774354813
+            }
+        },
+        "time": "0:00:26",
+        "trial_id": 1,
+        "tuning_time": "0:01:11"
+    },
+    {
+        "config": {
+            "data": {
+                "path": "rtdl_revisiting_models/data/microsoft",
+                "y_policy": "mean_std"
+            },
+            "fit": {
+                "logging_level": "Verbose"
+            },
+            "model": {
+                "bagging_temperature": 0.7917250380826646,
+                "depth": 8,
+                "early_stopping_rounds": 50,
+                "iterations": 1000,
+                "l2_leaf_reg": 3.6986612821028797,
+                "leaf_estimation_iterations": 10,
+                "learning_rate": 2.2655846366566637e-05,
+                "metric_period": 10,
+                "od_pval": 0.001,
+                "task_type": "GPU",
+                "thread_count": 1
+            },
+            "seed": 0
+        },
+        "environment": {
+            "devices": {
+                "CUDA_VISIBLE_DEVICES": "0",
+                "torch.version.cuda": "11.7",
+                "torch.backends.cudnn.version()": 8500,
+                "torch.cuda.nccl.version()": [
+                    2,
+                    14,
+                    3
+                ],
+                "driver": "560.35.03",
+                "0": {
+                    "name": "Tesla P100-PCIE-16GB",
+                    "total_memory": 17179869184
+                }
+            }
+        },
+        "dataset": "microsoft",
+        "algorithm": "catboost_",
+        "metrics": {
+            "train": {
+                "rmse": 0.8198478016974795,
+                "score": -0.8198478016974795
+            },
+            "val": {
+                "rmse": 0.8279308829976798,
+                "score": -0.8279308829976798
+            },
+            "test": {
+                "rmse": 0.830572922194355,
+                "score": -0.830572922194355
+            }
+        },
+        "time": "0:00:26",
+        "trial_id": 2,
+        "tuning_time": "0:01:41"
+    },
+    {
+        "config": {
+            "data": {
+                "path": "rtdl_revisiting_models/data/microsoft",
+                "y_policy": "mean_std"
+            },
+            "fit": {
+                "logging_level": "Verbose"
+            },
+            "model": {
+                "bagging_temperature": 0.08712929970154071,
+                "depth": 6,
+                "early_stopping_rounds": 50,
+                "iterations": 1000,
+                "l2_leaf_reg": 6.801737161546002,
+                "leaf_estimation_iterations": 8,
+                "learning_rate": 0.22390342721683687,
+                "metric_period": 10,
+                "od_pval": 0.001,
+                "task_type": "GPU",
+                "thread_count": 1
+            },
+            "seed": 0
+        },
+        "environment": {
+            "devices": {
+                "CUDA_VISIBLE_DEVICES": "0",
+                "torch.version.cuda": "11.7",
+                "torch.backends.cudnn.version()": 8500,
+                "torch.cuda.nccl.version()": [
+                    2,
+                    14,
+                    3
+                ],
+                "driver": "560.35.03",
+                "0": {
+                    "name": "Tesla P100-PCIE-16GB",
+                    "total_memory": 17179869184
+                }
+            }
+        },
+        "dataset": "microsoft",
+        "algorithm": "catboost_",
+        "metrics": {
+            "train": {
+                "rmse": 0.7066720990540798,
+                "score": -0.7066720990540798
+            },
+            "val": {
+                "rmse": 0.744046275845767,
+                "score": -0.744046275845767
+            },
+            "test": {
+                "rmse": 0.7478224891519349,
+                "score": -0.7478224891519349
+            }
+        },
+        "time": "0:00:18",
+        "trial_id": 3,
+        "tuning_time": "0:02:03"
+    },
+    {
+        "config": {
+            "data": {
+                "path": "rtdl_revisiting_models/data/microsoft",
+                "y_policy": "mean_std"
+            },
+            "fit": {
+                "logging_level": "Verbose"
+            },
+            "model": {
+                "bagging_temperature": 0.978618342232764,
+                "depth": 9,
+                "early_stopping_rounds": 50,
+                "iterations": 1000,
+                "l2_leaf_reg": 2.893872296497689,
+                "leaf_estimation_iterations": 8,
+                "learning_rate": 3.902762553553292e-05,
+                "metric_period": 10,
+                "od_pval": 0.001,
+                "task_type": "GPU",
+                "thread_count": 1
+            },
+            "seed": 0
+        },
+        "environment": {
+            "devices": {
+                "CUDA_VISIBLE_DEVICES": "0",
+                "torch.version.cuda": "11.7",
+                "torch.backends.cudnn.version()": 8500,
+                "torch.cuda.nccl.version()": [
+                    2,
+                    14,
+                    3
+                ],
+                "driver": "560.35.03",
+                "0": {
+                    "name": "Tesla P100-PCIE-16GB",
+                    "total_memory": 17179869184
+                }
+            }
+        },
+        "dataset": "microsoft",
+        "algorithm": "catboost_",
+        "metrics": {
+            "train": {
+                "rmse": 0.8180907863555984,
+                "score": -0.8180907863555984
+            },
+            "val": {
+                "rmse": 0.8262548801172691,
+                "score": -0.8262548801172691
+            },
+            "test": {
+                "rmse": 0.8288414133014127,
+                "score": -0.8288414133014127
+            }
+        },
+        "time": "0:00:32",
+        "trial_id": 4,
+        "tuning_time": "0:02:39"
+    },
+    {
+        "config": {
+            "data": {
+                "path": "rtdl_revisiting_models/data/microsoft",
+                "y_policy": "mean_std"
+            },
+            "fit": {
+                "logging_level": "Verbose"
+            },
+            "model": {
+                "bagging_temperature": 0.6399210213275238,
+                "depth": 6,
+                "early_stopping_rounds": 50,
+                "iterations": 1000,
+                "l2_leaf_reg": 8.803774642925566,
+                "leaf_estimation_iterations": 6,
+                "learning_rate": 0.0011838854959491769,
+                "metric_period": 10,
+                "od_pval": 0.001,
+                "task_type": "GPU",
+                "thread_count": 1
+            },
+            "seed": 0
+        },
+        "environment": {
+            "devices": {
+                "CUDA_VISIBLE_DEVICES": "0",
+                "torch.version.cuda": "11.7",
+                "torch.backends.cudnn.version()": 8500,
+                "torch.cuda.nccl.version()": [
+                    2,
+                    14,
+                    3
+                ],
+                "driver": "560.35.03",
+                "0": {
+                    "name": "Tesla P100-PCIE-16GB",
+                    "total_memory": 17179869184
+                }
+            }
+        },
+        "dataset": "microsoft",
+        "algorithm": "catboost_",
+        "metrics": {
+            "train": {
+                "rmse": 0.7713673510645565,
+                "score": -0.7713673510645565
+            },
+            "val": {
+                "rmse": 0.7812444692795095,
+                "score": -0.7812444692795095
+            },
+            "test": {
+                "rmse": 0.7823712903943847,
+                "score": -0.7823712903943847
+            }
+        },
+        "time": "0:00:18",
+        "trial_id": 5,
+        "tuning_time": "0:03:01"
+    },
+    {
+        "config": {
+            "data": {
+                "path": "rtdl_revisiting_models/data/microsoft",
+                "y_policy": "mean_std"
+            },
+            "fit": {
+                "logging_level": "Verbose"
+            },
+            "model": {
+                "bagging_temperature": 0.26455561210462697,
+                "depth": 9,
+                "early_stopping_rounds": 50,
+                "iterations": 1000,
+                "l2_leaf_reg": 2.858579877336973,
+                "leaf_estimation_iterations": 6,
+                "learning_rate": 1.2415065128756008e-05,
+                "metric_period": 10,
+                "od_pval": 0.001,
+                "task_type": "GPU",
+                "thread_count": 1
+            },
+            "seed": 0
+        },
+        "environment": {
+            "devices": {
+                "CUDA_VISIBLE_DEVICES": "0",
+                "torch.version.cuda": "11.7",
+                "torch.backends.cudnn.version()": 8500,
+                "torch.cuda.nccl.version()": [
+                    2,
+                    14,
+                    3
+                ],
+                "driver": "560.35.03",
+                "0": {
+                    "name": "Tesla P100-PCIE-16GB",
+                    "total_memory": 17179869184
+                }
+            }
+        },
+        "dataset": "microsoft",
+        "algorithm": "catboost_",
+        "metrics": {
+            "train": {
+                "rmse": 0.8208155670865033,
+                "score": -0.8208155670865033
+            },
+            "val": {
+                "rmse": 0.8288673540499155,
+                "score": -0.8288673540499155
+            },
+            "test": {
+                "rmse": 0.8315362680090617,
+                "score": -0.8315362680090617
+            }
+        },
+        "time": "0:00:31",
+        "trial_id": 6,
+        "tuning_time": "0:03:36"
+    },
+    {
+        "config": {
+            "data": {
+                "path": "rtdl_revisiting_models/data/microsoft",
+                "y_policy": "mean_std"
+            },
+            "fit": {
+                "logging_level": "Verbose"
+            },
+            "model": {
+                "bagging_temperature": 0.6176354970758771,
+                "depth": 9,
+                "early_stopping_rounds": 50,
+                "iterations": 1000,
+                "l2_leaf_reg": 4.139367608357544,
+                "leaf_estimation_iterations": 10,
+                "learning_rate": 0.025650834317709894,
+                "metric_period": 10,
+                "od_pval": 0.001,
+                "task_type": "GPU",
+                "thread_count": 1
+            },
+            "seed": 0
+        },
+        "environment": {
+            "devices": {
+                "CUDA_VISIBLE_DEVICES": "0",
+                "torch.version.cuda": "11.7",
+                "torch.backends.cudnn.version()": 8500,
+                "torch.cuda.nccl.version()": [
+                    2,
+                    14,
+                    3
+                ],
+                "driver": "560.35.03",
+                "0": {
+                    "name": "Tesla P100-PCIE-16GB",
+                    "total_memory": 17179869184
+                }
+            }
+        },
+        "dataset": "microsoft",
+        "algorithm": "catboost_",
+        "metrics": {
+            "train": {
+                "rmse": 0.7119365520790113,
+                "score": -0.7119365520790113
+            },
+            "val": {
+                "rmse": 0.7430506779606065,
+                "score": -0.7430506779606065
+            },
+            "test": {
+                "rmse": 0.7460507008852337,
+                "score": -0.7460507008852337
+            }
+        },
+        "time": "0:00:34",
+        "trial_id": 7,
+        "tuning_time": "0:04:14"
+    },
+    {
+        "config": {
+            "data": {
+                "path": "rtdl_revisiting_models/data/microsoft",
+                "y_policy": "mean_std"
+            },
+            "fit": {
+                "logging_level": "Verbose"
+            },
+            "model": {
+                "bagging_temperature": 0.359507900573786,
+                "depth": 8,
+                "early_stopping_rounds": 50,
+                "iterations": 1000,
+                "l2_leaf_reg": 4.984610132094825,
+                "leaf_estimation_iterations": 1,
+                "learning_rate": 0.021569177143056173,
+                "metric_period": 10,
+                "od_pval": 0.001,
+                "task_type": "GPU",
+                "thread_count": 1
+            },
+            "seed": 0
+        },
+        "environment": {
+            "devices": {
+                "CUDA_VISIBLE_DEVICES": "0",
+                "torch.version.cuda": "11.7",
+                "torch.backends.cudnn.version()": 8500,
+                "torch.cuda.nccl.version()": [
+                    2,
+                    14,
+                    3
+                ],
+                "driver": "560.35.03",
+                "0": {
+                    "name": "Tesla P100-PCIE-16GB",
+                    "total_memory": 17179869184
+                }
+            }
+        },
+        "dataset": "microsoft",
+        "algorithm": "catboost_",
+        "metrics": {
+            "train": {
+                "rmse": 0.7241690313022644,
+                "score": -0.7241690313022644
+            },
+            "val": {
+                "rmse": 0.7453546688005782,
+                "score": -0.7453546688005782
+            },
+            "test": {
+                "rmse": 0.7479078557372675,
+                "score": -0.7479078557372675
+            }
+        },
+        "time": "0:00:20",
+        "trial_id": 8,
+        "tuning_time": "0:04:38"
+    },
+    {
+        "config": {
+            "data": {
+                "path": "rtdl_revisiting_models/data/microsoft",
+                "y_policy": "mean_std"
+            },
+            "fit": {
+                "logging_level": "Verbose"
+            },
+            "model": {
+                "bagging_temperature": 0.6706378696181594,
+                "depth": 7,
+                "early_stopping_rounds": 50,
+                "iterations": 1000,
+                "l2_leaf_reg": 1.3456319729640447,
+                "leaf_estimation_iterations": 4,
+                "learning_rate": 0.0006584970818505349,
+                "metric_period": 10,
+                "od_pval": 0.001,
+                "task_type": "GPU",
+                "thread_count": 1
+            },
+            "seed": 0
+        },
+        "environment": {
+            "devices": {
+                "CUDA_VISIBLE_DEVICES": "0",
+                "torch.version.cuda": "11.7",
+                "torch.backends.cudnn.version()": 8500,
+                "torch.cuda.nccl.version()": [
+                    2,
+                    14,
+                    3
+                ],
+                "driver": "560.35.03",
+                "0": {
+                    "name": "Tesla P100-PCIE-16GB",
+                    "total_memory": 17179869184
+                }
+            }
+        },
+        "dataset": "microsoft",
+        "algorithm": "catboost_",
+        "metrics": {
+            "train": {
+                "rmse": 0.7823456596691558,
+                "score": -0.7823456596691558
+            },
+            "val": {
+                "rmse": 0.791826036409302,
+                "score": -0.791826036409302
+            },
+            "test": {
+                "rmse": 0.793417877296062,
+                "score": -0.793417877296062
+            }
+        },
+        "time": "0:00:19",
+        "trial_id": 9,
+        "tuning_time": "0:05:01"
+    },
+    {
+        "config": {
+            "data": {
+                "path": "rtdl_revisiting_models/data/microsoft",
+                "y_policy": "mean_std"
+            },
+            "fit": {
+                "logging_level": "Verbose"
+            },
+            "model": {
+                "bagging_temperature": 0.9316866783269435,
+                "depth": 10,
+                "early_stopping_rounds": 50,
+                "iterations": 1000,
+                "l2_leaf_reg": 1.845276363575476,
+                "leaf_estimation_iterations": 3,
+                "learning_rate": 0.5577000965824035,
+                "metric_period": 10,
+                "od_pval": 0.001,
+                "task_type": "GPU",
+                "thread_count": 1
+            },
+            "seed": 0
+        },
+        "environment": {
+            "devices": {
+                "CUDA_VISIBLE_DEVICES": "0",
+                "torch.version.cuda": "11.7",
+                "torch.backends.cudnn.version()": 8500,
+                "torch.cuda.nccl.version()": [
+                    2,
+                    14,
+                    3
+                ],
+                "driver": "560.35.03",
+                "0": {
+                    "name": "Tesla P100-PCIE-16GB",
+                    "total_memory": 17179869184
+                }
+            }
+        },
+        "dataset": "microsoft",
+        "algorithm": "catboost_",
+        "metrics": {
+            "train": {
+                "rmse": 0.7137321995282756,
+                "score": -0.7137321995282756
+            },
+            "val": {
+                "rmse": 0.7528186014749386,
+                "score": -0.7528186014749386
+            },
+            "test": {
+                "rmse": 0.7555691283338816,
+                "score": -0.7555691283338816
+            }
+        },
+        "time": "0:00:14",
+        "trial_id": 10,
+        "tuning_time": "0:05:19"
+    },
+    {
+        "config": {
+            "data": {
+                "path": "rtdl_revisiting_models/data/microsoft",
+                "y_policy": "mean_std"
+            },
+            "fit": {
+                "logging_level": "Verbose"
+            },
+            "model": {
+                "bagging_temperature": 0.007969232472307797,
+                "depth": 6,
+                "early_stopping_rounds": 50,
+                "iterations": 1000,
+                "l2_leaf_reg": 6.079175354777677,
+                "leaf_estimation_iterations": 8,
+                "learning_rate": 0.19640994672716525,
+                "metric_period": 10,
+                "od_pval": 0.001,
+                "task_type": "GPU",
+                "thread_count": 1
+            },
+            "seed": 0
+        },
+        "environment": {
+            "devices": {
+                "CUDA_VISIBLE_DEVICES": "0",
+                "torch.version.cuda": "11.7",
+                "torch.backends.cudnn.version()": 8500,
+                "torch.cuda.nccl.version()": [
+                    2,
+                    14,
+                    3
+                ],
+                "driver": "560.35.03",
+                "0": {
+                    "name": "Tesla P100-PCIE-16GB",
+                    "total_memory": 17179869184
+                }
+            }
+        },
+        "dataset": "microsoft",
+        "algorithm": "catboost_",
+        "metrics": {
+            "train": {
+                "rmse": 0.7029222595970054,
+                "score": -0.7029222595970054
+            },
+            "val": {
+                "rmse": 0.743634567276435,
+                "score": -0.743634567276435
+            },
+            "test": {
+                "rmse": 0.7467948752173715,
+                "score": -0.7467948752173715
+            }
+        },
+        "time": "0:00:18",
+        "trial_id": 11,
+        "tuning_time": "0:05:41"
+    },
+    {
+        "config": {
+            "data": {
+                "path": "rtdl_revisiting_models/data/microsoft",
+                "y_policy": "mean_std"
+            },
+            "fit": {
+                "logging_level": "Verbose"
+            },
+            "model": {
+                "bagging_temperature": 0.02910614469225216,
+                "depth": 7,
+                "early_stopping_rounds": 50,
+                "iterations": 1000,
+                "l2_leaf_reg": 5.1422197246820485,
+                "leaf_estimation_iterations": 8,
+                "learning_rate": 0.046894822792454244,
+                "metric_period": 10,
+                "od_pval": 0.001,
+                "task_type": "GPU",
+                "thread_count": 1
+            },
+            "seed": 0
+        },
+        "environment": {
+            "devices": {
+                "CUDA_VISIBLE_DEVICES": "0",
+                "torch.version.cuda": "11.7",
+                "torch.backends.cudnn.version()": 8500,
+                "torch.cuda.nccl.version()": [
+                    2,
+                    14,
+                    3
+                ],
+                "driver": "560.35.03",
+                "0": {
+                    "name": "Tesla P100-PCIE-16GB",
+                    "total_memory": 17179869184
+                }
+            }
+        },
+        "dataset": "microsoft",
+        "algorithm": "catboost_",
+        "metrics": {
+            "train": {
+                "rmse": 0.7147632226461026,
+                "score": -0.7147632226461026
+            },
+            "val": {
+                "rmse": 0.743169177096874,
+                "score": -0.743169177096874
+            },
+            "test": {
+                "rmse": 0.7463080211359674,
+                "score": -0.7463080211359674
+            }
+        },
+        "time": "0:00:21",
+        "trial_id": 12,
+        "tuning_time": "0:06:06"
+    },
+    {
+        "config": {
+            "data": {
+                "path": "rtdl_revisiting_models/data/microsoft",
+                "y_policy": "mean_std"
+            },
+            "fit": {
+                "logging_level": "Verbose"
+            },
+            "model": {
+                "bagging_temperature": 0.3296724308649218,
+                "depth": 7,
+                "early_stopping_rounds": 50,
+                "iterations": 1000,
+                "l2_leaf_reg": 2.2154237675001975,
+                "leaf_estimation_iterations": 9,
+                "learning_rate": 0.020754821789117767,
+                "metric_period": 10,
+                "od_pval": 0.001,
+                "task_type": "GPU",
+                "thread_count": 1
+            },
+            "seed": 0
+        },
+        "environment": {
+            "devices": {
+                "CUDA_VISIBLE_DEVICES": "0",
+                "torch.version.cuda": "11.7",
+                "torch.backends.cudnn.version()": 8500,
+                "torch.cuda.nccl.version()": [
+                    2,
+                    14,
+                    3
+                ],
+                "driver": "560.35.03",
+                "0": {
+                    "name": "Tesla P100-PCIE-16GB",
+                    "total_memory": 17179869184
+                }
+            }
+        },
+        "dataset": "microsoft",
+        "algorithm": "catboost_",
+        "metrics": {
+            "train": {
+                "rmse": 0.7285006613612028,
+                "score": -0.7285006613612028
+            },
+            "val": {
+                "rmse": 0.746678848894009,
+                "score": -0.746678848894009
+            },
+            "test": {
+                "rmse": 0.7491482660359481,
+                "score": -0.7491482660359481
+            }
+        },
+        "time": "0:00:21",
+        "trial_id": 13,
+        "tuning_time": "0:06:31"
+    },
+    {
+        "config": {
+            "data": {
+                "path": "rtdl_revisiting_models/data/microsoft",
+                "y_policy": "mean_std"
+            },
+            "fit": {
+                "logging_level": "Verbose"
+            },
+            "model": {
+                "bagging_temperature": 0.4248271169571299,
+                "depth": 10,
+                "early_stopping_rounds": 50,
+                "iterations": 1000,
+                "l2_leaf_reg": 5.239830107431823,
+                "leaf_estimation_iterations": 9,
+                "learning_rate": 0.017121793735504754,
+                "metric_period": 10,
+                "od_pval": 0.001,
+                "task_type": "GPU",
+                "thread_count": 1
+            },
+            "seed": 0
+        },
+        "environment": {
+            "devices": {
+                "CUDA_VISIBLE_DEVICES": "0",
+                "torch.version.cuda": "11.7",
+                "torch.backends.cudnn.version()": 8500,
+                "torch.cuda.nccl.version()": [
+                    2,
+                    14,
+                    3
+                ],
+                "driver": "560.35.03",
+                "0": {
+                    "name": "Tesla P100-PCIE-16GB",
+                    "total_memory": 17179869184
+                }
+            }
+        },
+        "dataset": "microsoft",
+        "algorithm": "catboost_",
+        "metrics": {
+            "train": {
+                "rmse": 0.7127302403877427,
+                "score": -0.7127302403877427
+            },
+            "val": {
+                "rmse": 0.7437109266867111,
+                "score": -0.7437109266867111
+            },
+            "test": {
+                "rmse": 0.7465710558801362,
+                "score": -0.7465710558801362
+            }
+        },
+        "time": "0:00:45",
+        "trial_id": 14,
+        "tuning_time": "0:07:20"
+    },
+    {
+        "config": {
+            "data": {
+                "path": "rtdl_revisiting_models/data/microsoft",
+                "y_policy": "mean_std"
+            },
+            "fit": {
+                "logging_level": "Verbose"
+            },
+            "model": {
+                "bagging_temperature": 0.12199907720189097,
+                "depth": 7,
+                "early_stopping_rounds": 50,
+                "iterations": 1000,
+                "l2_leaf_reg": 4.297666922310363,
+                "leaf_estimation_iterations": 7,
+                "learning_rate": 0.06750592255037251,
+                "metric_period": 10,
+                "od_pval": 0.001,
+                "task_type": "GPU",
+                "thread_count": 1
+            },
+            "seed": 0
+        },
+        "environment": {
+            "devices": {
+                "CUDA_VISIBLE_DEVICES": "0",
+                "torch.version.cuda": "11.7",
+                "torch.backends.cudnn.version()": 8500,
+                "torch.cuda.nccl.version()": [
+                    2,
+                    14,
+                    3
+                ],
+                "driver": "560.35.03",
+                "0": {
+                    "name": "Tesla P100-PCIE-16GB",
+                    "total_memory": 17179869184
+                }
+            }
+        },
+        "dataset": "microsoft",
+        "algorithm": "catboost_",
+        "metrics": {
+            "train": {
+                "rmse": 0.706626919715948,
+                "score": -0.706626919715948
+            },
+            "val": {
+                "rmse": 0.7421878139573093,
+                "score": -0.7421878139573093
+            },
+            "test": {
+                "rmse": 0.7451542875693681,
+                "score": -0.7451542875693681
+            }
+        },
+        "time": "0:00:20",
+        "trial_id": 15,
+        "tuning_time": "0:07:44"
+    },
+    {
+        "config": {
+            "data": {
+                "path": "rtdl_revisiting_models/data/microsoft",
+                "y_policy": "mean_std"
+            },
+            "fit": {
+                "logging_level": "Verbose"
+            },
+            "model": {
+                "bagging_temperature": 0.18925388686614786,
+                "depth": 8,
+                "early_stopping_rounds": 50,
+                "iterations": 1000,
+                "l2_leaf_reg": 1.0502807738561133,
+                "leaf_estimation_iterations": 4,
+                "learning_rate": 0.005042074031506255,
+                "metric_period": 10,
+                "od_pval": 0.001,
+                "task_type": "GPU",
+                "thread_count": 1
+            },
+            "seed": 0
+        },
+        "environment": {
+            "devices": {
+                "CUDA_VISIBLE_DEVICES": "0",
+                "torch.version.cuda": "11.7",
+                "torch.backends.cudnn.version()": 8500,
+                "torch.cuda.nccl.version()": [
+                    2,
+                    14,
+                    3
+                ],
+                "driver": "560.35.03",
+                "0": {
+                    "name": "Tesla P100-PCIE-16GB",
+                    "total_memory": 17179869184
+                }
+            }
+        },
+        "dataset": "microsoft",
+        "algorithm": "catboost_",
+        "metrics": {
+            "train": {
+                "rmse": 0.7424642767292188,
+                "score": -0.7424642767292188
+            },
+            "val": {
+                "rmse": 0.7555790747170102,
+                "score": -0.7555790747170102
+            },
+            "test": {
+                "rmse": 0.7574372527746592,
+                "score": -0.7574372527746592
+            }
+        },
+        "time": "0:00:22",
+        "trial_id": 16,
+        "tuning_time": "0:08:10"
+    },
+    {
+        "config": {
+            "data": {
+                "path": "rtdl_revisiting_models/data/microsoft",
+                "y_policy": "mean_std"
+            },
+            "fit": {
+                "logging_level": "Verbose"
+            },
+            "model": {
+                "bagging_temperature": 0.48156482365258174,
+                "depth": 9,
+                "early_stopping_rounds": 50,
+                "iterations": 1000,
+                "l2_leaf_reg": 3.910524782565809,
+                "leaf_estimation_iterations": 7,
+                "learning_rate": 0.09229830576842278,
+                "metric_period": 10,
+                "od_pval": 0.001,
+                "task_type": "GPU",
+                "thread_count": 1
+            },
+            "seed": 0
+        },
+        "environment": {
+            "devices": {
+                "CUDA_VISIBLE_DEVICES": "0",
+                "torch.version.cuda": "11.7",
+                "torch.backends.cudnn.version()": 8500,
+                "torch.cuda.nccl.version()": [
+                    2,
+                    14,
+                    3
+                ],
+                "driver": "560.35.03",
+                "0": {
+                    "name": "Tesla P100-PCIE-16GB",
+                    "total_memory": 17179869184
+                }
+            }
+        },
+        "dataset": "microsoft",
+        "algorithm": "catboost_",
+        "metrics": {
+            "train": {
+                "rmse": 0.6718444885871805,
+                "score": -0.6718444885871805
+            },
+            "val": {
+                "rmse": 0.7412106045017657,
+                "score": -0.7412106045017657
+            },
+            "test": {
+                "rmse": 0.7443872441308552,
+                "score": -0.7443872441308552
+            }
+        },
+        "time": "0:00:31",
+        "trial_id": 17,
+        "tuning_time": "0:08:45"
+    },
+    {
+        "config": {
+            "data": {
+                "path": "rtdl_revisiting_models/data/microsoft",
+                "y_policy": "mean_std"
+            },
+            "fit": {
+                "logging_level": "Verbose"
+            },
+            "model": {
+                "bagging_temperature": 0.17029051871962697,
+                "depth": 7,
+                "early_stopping_rounds": 50,
+                "iterations": 1000,
+                "l2_leaf_reg": 2.498747821824878,
+                "leaf_estimation_iterations": 7,
+                "learning_rate": 0.11085372959223881,
+                "metric_period": 10,
+                "od_pval": 0.001,
+                "task_type": "GPU",
+                "thread_count": 1
+            },
+            "seed": 0
+        },
+        "environment": {
+            "devices": {
+                "CUDA_VISIBLE_DEVICES": "0",
+                "torch.version.cuda": "11.7",
+                "torch.backends.cudnn.version()": 8500,
+                "torch.cuda.nccl.version()": [
+                    2,
+                    14,
+                    3
+                ],
+                "driver": "560.35.03",
+                "0": {
+                    "name": "Tesla P100-PCIE-16GB",
+                    "total_memory": 17179869184
+                }
+            }
+        },
+        "dataset": "microsoft",
+        "algorithm": "catboost_",
+        "metrics": {
+            "train": {
+                "rmse": 0.6940070982261421,
+                "score": -0.6940070982261421
+            },
+            "val": {
+                "rmse": 0.7420044486982789,
+                "score": -0.7420044486982789
+            },
+            "test": {
+                "rmse": 0.7454677334134252,
+                "score": -0.7454677334134252
+            }
+        },
+        "time": "0:00:21",
+        "trial_id": 18,
+        "tuning_time": "0:09:09"
+    },
+    {
+        "config": {
+            "data": {
+                "path": "rtdl_revisiting_models/data/microsoft",
+                "y_policy": "mean_std"
+            },
+            "fit": {
+                "logging_level": "Verbose"
+            },
+            "model": {
+                "bagging_temperature": 0.4065353592905517,
+                "depth": 10,
+                "early_stopping_rounds": 50,
+                "iterations": 1000,
+                "l2_leaf_reg": 1.9439136887972628,
+                "leaf_estimation_iterations": 5,
+                "learning_rate": 0.6857937153766266,
+                "metric_period": 10,
+                "od_pval": 0.001,
+                "task_type": "GPU",
+                "thread_count": 1
+            },
+            "seed": 0
+        },
+        "environment": {
+            "devices": {
+                "CUDA_VISIBLE_DEVICES": "0",
+                "torch.version.cuda": "11.7",
+                "torch.backends.cudnn.version()": 8500,
+                "torch.cuda.nccl.version()": [
+                    2,
+                    14,
+                    3
+                ],
+                "driver": "560.35.03",
+                "0": {
+                    "name": "Tesla P100-PCIE-16GB",
+                    "total_memory": 17179869184
+                }
+            }
+        },
+        "dataset": "microsoft",
+        "algorithm": "catboost_",
+        "metrics": {
+            "train": {
+                "rmse": 0.7139548132528794,
+                "score": -0.7139548132528794
+            },
+            "val": {
+                "rmse": 0.7548970237780505,
+                "score": -0.7548970237780505
+            },
+            "test": {
+                "rmse": 0.7576371502787143,
+                "score": -0.7576371502787143
+            }
+        },
+        "time": "0:00:13",
+        "trial_id": 19,
+        "tuning_time": "0:09:26"
+    }
+]

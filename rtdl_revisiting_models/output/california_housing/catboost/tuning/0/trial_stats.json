@@ -1,0 +1,1222 @@
+[
+    {
+        "config": {
+            "data": {
+                "path": "rtdl_revisiting_models/data/california_housing",
+                "y_policy": "mean_std"
+            },
+            "fit": {
+                "logging_level": "Verbose"
+            },
+            "model": {
+                "bagging_temperature": 0.5488135039273248,
+                "depth": 8,
+                "early_stopping_rounds": 50,
+                "iterations": 1000,
+                "l2_leaf_reg": 4.006483661964395,
+                "leaf_estimation_iterations": 6,
+                "learning_rate": 0.0013130280280658588,
+                "metric_period": 10,
+                "od_pval": 0.001,
+                "task_type": "GPU",
+                "thread_count": 1
+            },
+            "seed": 0
+        },
+        "environment": {
+            "devices": {
+                "CUDA_VISIBLE_DEVICES": "0",
+                "torch.version.cuda": "11.7",
+                "torch.backends.cudnn.version()": 8500,
+                "torch.cuda.nccl.version()": [
+                    2,
+                    14,
+                    3
+                ],
+                "driver": "560.35.03",
+                "0": {
+                    "name": "Tesla P100-PCIE-16GB",
+                    "total_memory": 17179869184
+                }
+            }
+        },
+        "dataset": "california_housing",
+        "algorithm": "catboost_",
+        "metrics": {
+            "train": {
+                "rmse": 0.6742459333889768,
+                "score": -0.6742459333889768
+            },
+            "val": {
+                "rmse": 0.6923460412789074,
+                "score": -0.6923460412789074
+            },
+            "test": {
+                "rmse": 0.683999811186844,
+                "score": -0.683999811186844
+            }
+        },
+        "time": "0:01:21",
+        "trial_id": 0,
+        "tuning_time": "0:01:24"
+    },
+    {
+        "config": {
+            "data": {
+                "path": "rtdl_revisiting_models/data/california_housing",
+                "y_policy": "mean_std"
+            },
+            "fit": {
+                "logging_level": "Verbose"
+            },
+            "model": {
+                "bagging_temperature": 0.6458941130666561,
+                "depth": 6,
+                "early_stopping_rounds": 50,
+                "iterations": 1000,
+                "l2_leaf_reg": 7.79422611516095,
+                "leaf_estimation_iterations": 10,
+                "learning_rate": 0.0008264328927007723,
+                "metric_period": 10,
+                "od_pval": 0.001,
+                "task_type": "GPU",
+                "thread_count": 1
+            },
+            "seed": 0
+        },
+        "environment": {
+            "devices": {
+                "CUDA_VISIBLE_DEVICES": "0",
+                "torch.version.cuda": "11.7",
+                "torch.backends.cudnn.version()": 8500,
+                "torch.cuda.nccl.version()": [
+                    2,
+                    14,
+                    3
+                ],
+                "driver": "560.35.03",
+                "0": {
+                    "name": "Tesla P100-PCIE-16GB",
+                    "total_memory": 17179869184
+                }
+            }
+        },
+        "dataset": "california_housing",
+        "algorithm": "catboost_",
+        "metrics": {
+            "train": {
+                "rmse": 0.8070145502626872,
+                "score": -0.8070145502626872
+            },
+            "val": {
+                "rmse": 0.8175062322981518,
+                "score": -0.8175062322981518
+            },
+            "test": {
+                "rmse": 0.8089916145179951,
+                "score": -0.8089916145179951
+            }
+        },
+        "time": "0:00:43",
+        "trial_id": 1,
+        "tuning_time": "0:02:10"
+    },
+    {
+        "config": {
+            "data": {
+                "path": "rtdl_revisiting_models/data/california_housing",
+                "y_policy": "mean_std"
+            },
+            "fit": {
+                "logging_level": "Verbose"
+            },
+            "model": {
+                "bagging_temperature": 0.7917250380826646,
+                "depth": 7,
+                "early_stopping_rounds": 50,
+                "iterations": 1000,
+                "l2_leaf_reg": 3.6986612821028797,
+                "leaf_estimation_iterations": 10,
+                "learning_rate": 2.2655846366566637e-05,
+                "metric_period": 10,
+                "od_pval": 0.001,
+                "task_type": "GPU",
+                "thread_count": 1
+            },
+            "seed": 0
+        },
+        "environment": {
+            "devices": {
+                "CUDA_VISIBLE_DEVICES": "0",
+                "torch.version.cuda": "11.7",
+                "torch.backends.cudnn.version()": 8500,
+                "torch.cuda.nccl.version()": [
+                    2,
+                    14,
+                    3
+                ],
+                "driver": "560.35.03",
+                "0": {
+                    "name": "Tesla P100-PCIE-16GB",
+                    "total_memory": 17179869184
+                }
+            }
+        },
+        "dataset": "california_housing",
+        "algorithm": "catboost_",
+        "metrics": {
+            "train": {
+                "rmse": 1.141612648989457,
+                "score": -1.141612648989457
+            },
+            "val": {
+                "rmse": 1.1401794150971218,
+                "score": -1.1401794150971218
+            },
+            "test": {
+                "rmse": 1.1268890947361012,
+                "score": -1.1268890947361012
+            }
+        },
+        "time": "0:01:06",
+        "trial_id": 2,
+        "tuning_time": "0:03:20"
+    },
+    {
+        "config": {
+            "data": {
+                "path": "rtdl_revisiting_models/data/california_housing",
+                "y_policy": "mean_std"
+            },
+            "fit": {
+                "logging_level": "Verbose"
+            },
+            "model": {
+                "bagging_temperature": 0.08712929970154071,
+                "depth": 3,
+                "early_stopping_rounds": 50,
+                "iterations": 1000,
+                "l2_leaf_reg": 6.801737161546002,
+                "leaf_estimation_iterations": 8,
+                "learning_rate": 0.22390342721683687,
+                "metric_period": 10,
+                "od_pval": 0.001,
+                "task_type": "GPU",
+                "thread_count": 1
+            },
+            "seed": 0
+        },
+        "environment": {
+            "devices": {
+                "CUDA_VISIBLE_DEVICES": "0",
+                "torch.version.cuda": "11.7",
+                "torch.backends.cudnn.version()": 8500,
+                "torch.cuda.nccl.version()": [
+                    2,
+                    14,
+                    3
+                ],
+                "driver": "560.35.03",
+                "0": {
+                    "name": "Tesla P100-PCIE-16GB",
+                    "total_memory": 17179869184
+                }
+            }
+        },
+        "dataset": "california_housing",
+        "algorithm": "catboost_",
+        "metrics": {
+            "train": {
+                "rmse": 0.4422058510899138,
+                "score": -0.4422058510899138
+            },
+            "val": {
+                "rmse": 0.48758256018068485,
+                "score": -0.48758256018068485
+            },
+            "test": {
+                "rmse": 0.4740499216628859,
+                "score": -0.4740499216628859
+            }
+        },
+        "time": "0:00:14",
+        "trial_id": 3,
+        "tuning_time": "0:03:37"
+    },
+    {
+        "config": {
+            "data": {
+                "path": "rtdl_revisiting_models/data/california_housing",
+                "y_policy": "mean_std"
+            },
+            "fit": {
+                "logging_level": "Verbose"
+            },
+            "model": {
+                "bagging_temperature": 0.978618342232764,
+                "depth": 9,
+                "early_stopping_rounds": 50,
+                "iterations": 1000,
+                "l2_leaf_reg": 2.893872296497689,
+                "leaf_estimation_iterations": 8,
+                "learning_rate": 3.902762553553292e-05,
+                "metric_period": 10,
+                "od_pval": 0.001,
+                "task_type": "GPU",
+                "thread_count": 1
+            },
+            "seed": 0
+        },
+        "environment": {
+            "devices": {
+                "CUDA_VISIBLE_DEVICES": "0",
+                "torch.version.cuda": "11.7",
+                "torch.backends.cudnn.version()": 8500,
+                "torch.cuda.nccl.version()": [
+                    2,
+                    14,
+                    3
+                ],
+                "driver": "560.35.03",
+                "0": {
+                    "name": "Tesla P100-PCIE-16GB",
+                    "total_memory": 17179869184
+                }
+            }
+        },
+        "dataset": "california_housing",
+        "algorithm": "catboost_",
+        "metrics": {
+            "train": {
+                "rmse": 1.1288118916753944,
+                "score": -1.1288118916753944
+            },
+            "val": {
+                "rmse": 1.1277335628923237,
+                "score": -1.1277335628923237
+            },
+            "test": {
+                "rmse": 1.11452574220382,
+                "score": -1.11452574220382
+            }
+        },
+        "time": "0:03:05",
+        "trial_id": 4,
+        "tuning_time": "0:06:45"
+    },
+    {
+        "config": {
+            "data": {
+                "path": "rtdl_revisiting_models/data/california_housing",
+                "y_policy": "mean_std"
+            },
+            "fit": {
+                "logging_level": "Verbose"
+            },
+            "model": {
+                "bagging_temperature": 0.6399210213275238,
+                "depth": 4,
+                "early_stopping_rounds": 50,
+                "iterations": 1000,
+                "l2_leaf_reg": 8.803774642925566,
+                "leaf_estimation_iterations": 6,
+                "learning_rate": 0.0011838854959491769,
+                "metric_period": 10,
+                "od_pval": 0.001,
+                "task_type": "GPU",
+                "thread_count": 1
+            },
+            "seed": 0
+        },
+        "environment": {
+            "devices": {
+                "CUDA_VISIBLE_DEVICES": "0",
+                "torch.version.cuda": "11.7",
+                "torch.backends.cudnn.version()": 8500,
+                "torch.cuda.nccl.version()": [
+                    2,
+                    14,
+                    3
+                ],
+                "driver": "560.35.03",
+                "0": {
+                    "name": "Tesla P100-PCIE-16GB",
+                    "total_memory": 17179869184
+                }
+            }
+        },
+        "dataset": "california_housing",
+        "algorithm": "catboost_",
+        "metrics": {
+            "train": {
+                "rmse": 0.7800506480939496,
+                "score": -0.7800506480939496
+            },
+            "val": {
+                "rmse": 0.79084692168073,
+                "score": -0.79084692168073
+            },
+            "test": {
+                "rmse": 0.7860743151504136,
+                "score": -0.7860743151504136
+            }
+        },
+        "time": "0:00:14",
+        "trial_id": 5,
+        "tuning_time": "0:07:02"
+    },
+    {
+        "config": {
+            "data": {
+                "path": "rtdl_revisiting_models/data/california_housing",
+                "y_policy": "mean_std"
+            },
+            "fit": {
+                "logging_level": "Verbose"
+            },
+            "model": {
+                "bagging_temperature": 0.26455561210462697,
+                "depth": 9,
+                "early_stopping_rounds": 50,
+                "iterations": 1000,
+                "l2_leaf_reg": 2.858579877336973,
+                "leaf_estimation_iterations": 6,
+                "learning_rate": 1.2415065128756008e-05,
+                "metric_period": 10,
+                "od_pval": 0.001,
+                "task_type": "GPU",
+                "thread_count": 1
+            },
+            "seed": 0
+        },
+        "environment": {
+            "devices": {
+                "CUDA_VISIBLE_DEVICES": "0",
+                "torch.version.cuda": "11.7",
+                "torch.backends.cudnn.version()": 8500,
+                "torch.cuda.nccl.version()": [
+                    2,
+                    14,
+                    3
+                ],
+                "driver": "560.35.03",
+                "0": {
+                    "name": "Tesla P100-PCIE-16GB",
+                    "total_memory": 17179869184
+                }
+            }
+        },
+        "dataset": "california_housing",
+        "algorithm": "catboost_",
+        "metrics": {
+            "train": {
+                "rmse": 1.1480675155513562,
+                "score": -1.1480675155513562
+            },
+            "val": {
+                "rmse": 1.1464499421600272,
+                "score": -1.1464499421600272
+            },
+            "test": {
+                "rmse": 1.133084647394643,
+                "score": -1.133084647394643
+            }
+        },
+        "time": "0:02:28",
+        "trial_id": 6,
+        "tuning_time": "0:09:34"
+    },
+    {
+        "config": {
+            "data": {
+                "path": "rtdl_revisiting_models/data/california_housing",
+                "y_policy": "mean_std"
+            },
+            "fit": {
+                "logging_level": "Verbose"
+            },
+            "model": {
+                "bagging_temperature": 0.6176354970758771,
+                "depth": 7,
+                "early_stopping_rounds": 50,
+                "iterations": 1000,
+                "l2_leaf_reg": 4.139367608357544,
+                "leaf_estimation_iterations": 10,
+                "learning_rate": 0.025650834317709894,
+                "metric_period": 10,
+                "od_pval": 0.001,
+                "task_type": "GPU",
+                "thread_count": 1
+            },
+            "seed": 0
+        },
+        "environment": {
+            "devices": {
+                "CUDA_VISIBLE_DEVICES": "0",
+                "torch.version.cuda": "11.7",
+                "torch.backends.cudnn.version()": 8500,
+                "torch.cuda.nccl.version()": [
+                    2,
+                    14,
+                    3
+                ],
+                "driver": "560.35.03",
+                "0": {
+                    "name": "Tesla P100-PCIE-16GB",
+                    "total_memory": 17179869184
+                }
+            }
+        },
+        "dataset": "california_housing",
+        "algorithm": "catboost_",
+        "metrics": {
+            "train": {
+                "rmse": 0.4149101823883343,
+                "score": -0.4149101823883343
+            },
+            "val": {
+                "rmse": 0.4786548563274087,
+                "score": -0.4786548563274087
+            },
+            "test": {
+                "rmse": 0.4656151176982294,
+                "score": -0.4656151176982294
+            }
+        },
+        "time": "0:01:01",
+        "trial_id": 7,
+        "tuning_time": "0:10:38"
+    },
+    {
+        "config": {
+            "data": {
+                "path": "rtdl_revisiting_models/data/california_housing",
+                "y_policy": "mean_std"
+            },
+            "fit": {
+                "logging_level": "Verbose"
+            },
+            "model": {
+                "bagging_temperature": 0.359507900573786,
+                "depth": 6,
+                "early_stopping_rounds": 50,
+                "iterations": 1000,
+                "l2_leaf_reg": 4.984610132094825,
+                "leaf_estimation_iterations": 1,
+                "learning_rate": 0.021569177143056173,
+                "metric_period": 10,
+                "od_pval": 0.001,
+                "task_type": "GPU",
+                "thread_count": 1
+            },
+            "seed": 0
+        },
+        "environment": {
+            "devices": {
+                "CUDA_VISIBLE_DEVICES": "0",
+                "torch.version.cuda": "11.7",
+                "torch.backends.cudnn.version()": 8500,
+                "torch.cuda.nccl.version()": [
+                    2,
+                    14,
+                    3
+                ],
+                "driver": "560.35.03",
+                "0": {
+                    "name": "Tesla P100-PCIE-16GB",
+                    "total_memory": 17179869184
+                }
+            }
+        },
+        "dataset": "california_housing",
+        "algorithm": "catboost_",
+        "metrics": {
+            "train": {
+                "rmse": 0.4416638108128322,
+                "score": -0.4416638108128322
+            },
+            "val": {
+                "rmse": 0.4869655533532343,
+                "score": -0.4869655533532343
+            },
+            "test": {
+                "rmse": 0.47548794587765647,
+                "score": -0.47548794587765647
+            }
+        },
+        "time": "0:00:11",
+        "trial_id": 8,
+        "tuning_time": "0:10:51"
+    },
+    {
+        "config": {
+            "data": {
+                "path": "rtdl_revisiting_models/data/california_housing",
+                "y_policy": "mean_std"
+            },
+            "fit": {
+                "logging_level": "Verbose"
+            },
+            "model": {
+                "bagging_temperature": 0.6706378696181594,
+                "depth": 4,
+                "early_stopping_rounds": 50,
+                "iterations": 1000,
+                "l2_leaf_reg": 1.3456319729640447,
+                "leaf_estimation_iterations": 4,
+                "learning_rate": 0.0006584970818505349,
+                "metric_period": 10,
+                "od_pval": 0.001,
+                "task_type": "GPU",
+                "thread_count": 1
+            },
+            "seed": 0
+        },
+        "environment": {
+            "devices": {
+                "CUDA_VISIBLE_DEVICES": "0",
+                "torch.version.cuda": "11.7",
+                "torch.backends.cudnn.version()": 8500,
+                "torch.cuda.nccl.version()": [
+                    2,
+                    14,
+                    3
+                ],
+                "driver": "560.35.03",
+                "0": {
+                    "name": "Tesla P100-PCIE-16GB",
+                    "total_memory": 17179869184
+                }
+            }
+        },
+        "dataset": "california_housing",
+        "algorithm": "catboost_",
+        "metrics": {
+            "train": {
+                "rmse": 0.8866492960157729,
+                "score": -0.8866492960157729
+            },
+            "val": {
+                "rmse": 0.8933399185002772,
+                "score": -0.8933399185002772
+            },
+            "test": {
+                "rmse": 0.8853706626574186,
+                "score": -0.8853706626574186
+            }
+        },
+        "time": "0:00:11",
+        "trial_id": 9,
+        "tuning_time": "0:11:06"
+    },
+    {
+        "config": {
+            "data": {
+                "path": "rtdl_revisiting_models/data/california_housing",
+                "y_policy": "mean_std"
+            },
+            "fit": {
+                "logging_level": "Verbose"
+            },
+            "model": {
+                "bagging_temperature": 0.9316866783269435,
+                "depth": 10,
+                "early_stopping_rounds": 50,
+                "iterations": 1000,
+                "l2_leaf_reg": 1.845276363575476,
+                "leaf_estimation_iterations": 3,
+                "learning_rate": 0.5577000965824035,
+                "metric_period": 10,
+                "od_pval": 0.001,
+                "task_type": "GPU",
+                "thread_count": 1
+            },
+            "seed": 0
+        },
+        "environment": {
+            "devices": {
+                "CUDA_VISIBLE_DEVICES": "0",
+                "torch.version.cuda": "11.7",
+                "torch.backends.cudnn.version()": 8500,
+                "torch.cuda.nccl.version()": [
+                    2,
+                    14,
+                    3
+                ],
+                "driver": "560.35.03",
+                "0": {
+                    "name": "Tesla P100-PCIE-16GB",
+                    "total_memory": 17179869184
+                }
+            }
+        },
+        "dataset": "california_housing",
+        "algorithm": "catboost_",
+        "metrics": {
+            "train": {
+                "rmse": 0.2907787485153259,
+                "score": -0.2907787485153259
+            },
+            "val": {
+                "rmse": 0.4924653227937136,
+                "score": -0.4924653227937136
+            },
+            "test": {
+                "rmse": 0.4745365065213021,
+                "score": -0.4745365065213021
+            }
+        },
+        "time": "0:01:17",
+        "trial_id": 10,
+        "tuning_time": "0:12:26"
+    },
+    {
+        "config": {
+            "data": {
+                "path": "rtdl_revisiting_models/data/california_housing",
+                "y_policy": "mean_std"
+            },
+            "fit": {
+                "logging_level": "Verbose"
+            },
+            "model": {
+                "bagging_temperature": 0.35260324651340347,
+                "depth": 6,
+                "early_stopping_rounds": 50,
+                "iterations": 1000,
+                "l2_leaf_reg": 5.158068151611149,
+                "leaf_estimation_iterations": 1,
+                "learning_rate": 0.051921369267448954,
+                "metric_period": 10,
+                "od_pval": 0.001,
+                "task_type": "GPU",
+                "thread_count": 1
+            },
+            "seed": 0
+        },
+        "environment": {
+            "devices": {
+                "CUDA_VISIBLE_DEVICES": "0",
+                "torch.version.cuda": "11.7",
+                "torch.backends.cudnn.version()": 8500,
+                "torch.cuda.nccl.version()": [
+                    2,
+                    14,
+                    3
+                ],
+                "driver": "560.35.03",
+                "0": {
+                    "name": "Tesla P100-PCIE-16GB",
+                    "total_memory": 17179869184
+                }
+            }
+        },
+        "dataset": "california_housing",
+        "algorithm": "catboost_",
+        "metrics": {
+            "train": {
+                "rmse": 0.40700407612807027,
+                "score": -0.40700407612807027
+            },
+            "val": {
+                "rmse": 0.4683780845478774,
+                "score": -0.4683780845478774
+            },
+            "test": {
+                "rmse": 0.4550963539059639,
+                "score": -0.4550963539059639
+            }
+        },
+        "time": "0:00:10",
+        "trial_id": 11,
+        "tuning_time": "0:12:39"
+    },
+    {
+        "config": {
+            "data": {
+                "path": "rtdl_revisiting_models/data/california_housing",
+                "y_policy": "mean_std"
+            },
+            "fit": {
+                "logging_level": "Verbose"
+            },
+            "model": {
+                "bagging_temperature": 0.39362828071136746,
+                "depth": 7,
+                "early_stopping_rounds": 50,
+                "iterations": 1000,
+                "l2_leaf_reg": 5.6152151664848855,
+                "leaf_estimation_iterations": 1,
+                "learning_rate": 0.03580188757685888,
+                "metric_period": 10,
+                "od_pval": 0.001,
+                "task_type": "GPU",
+                "thread_count": 1
+            },
+            "seed": 0
+        },
+        "environment": {
+            "devices": {
+                "CUDA_VISIBLE_DEVICES": "0",
+                "torch.version.cuda": "11.7",
+                "torch.backends.cudnn.version()": 8500,
+                "torch.cuda.nccl.version()": [
+                    2,
+                    14,
+                    3
+                ],
+                "driver": "560.35.03",
+                "0": {
+                    "name": "Tesla P100-PCIE-16GB",
+                    "total_memory": 17179869184
+                }
+            }
+        },
+        "dataset": "california_housing",
+        "algorithm": "catboost_",
+        "metrics": {
+            "train": {
+                "rmse": 0.4128457443159154,
+                "score": -0.4128457443159154
+            },
+            "val": {
+                "rmse": 0.4729548656699215,
+                "score": -0.4729548656699215
+            },
+            "test": {
+                "rmse": 0.4593614462871553,
+                "score": -0.4593614462871553
+            }
+        },
+        "time": "0:00:13",
+        "trial_id": 12,
+        "tuning_time": "0:12:56"
+    },
+    {
+        "config": {
+            "data": {
+                "path": "rtdl_revisiting_models/data/california_housing",
+                "y_policy": "mean_std"
+            },
+            "fit": {
+                "logging_level": "Verbose"
+            },
+            "model": {
+                "bagging_temperature": 0.3850002187575483,
+                "depth": 5,
+                "early_stopping_rounds": 50,
+                "iterations": 1000,
+                "l2_leaf_reg": 6.039818279710113,
+                "leaf_estimation_iterations": 1,
+                "learning_rate": 0.03448968988937594,
+                "metric_period": 10,
+                "od_pval": 0.001,
+                "task_type": "GPU",
+                "thread_count": 1
+            },
+            "seed": 0
+        },
+        "environment": {
+            "devices": {
+                "CUDA_VISIBLE_DEVICES": "0",
+                "torch.version.cuda": "11.7",
+                "torch.backends.cudnn.version()": 8500,
+                "torch.cuda.nccl.version()": [
+                    2,
+                    14,
+                    3
+                ],
+                "driver": "560.35.03",
+                "0": {
+                    "name": "Tesla P100-PCIE-16GB",
+                    "total_memory": 17179869184
+                }
+            }
+        },
+        "dataset": "california_housing",
+        "algorithm": "catboost_",
+        "metrics": {
+            "train": {
+                "rmse": 0.4365309257035341,
+                "score": -0.4365309257035341
+            },
+            "val": {
+                "rmse": 0.4819259257475206,
+                "score": -0.4819259257475206
+            },
+            "test": {
+                "rmse": 0.47140959764555296,
+                "score": -0.47140959764555296
+            }
+        },
+        "time": "0:00:08",
+        "trial_id": 13,
+        "tuning_time": "0:13:07"
+    },
+    {
+        "config": {
+            "data": {
+                "path": "rtdl_revisiting_models/data/california_housing",
+                "y_policy": "mean_std"
+            },
+            "fit": {
+                "logging_level": "Verbose"
+            },
+            "model": {
+                "bagging_temperature": 0.1127537315381743,
+                "depth": 8,
+                "early_stopping_rounds": 50,
+                "iterations": 1000,
+                "l2_leaf_reg": 5.586765983043984,
+                "leaf_estimation_iterations": 3,
+                "learning_rate": 0.11703303685407453,
+                "metric_period": 10,
+                "od_pval": 0.001,
+                "task_type": "GPU",
+                "thread_count": 1
+            },
+            "seed": 0
+        },
+        "environment": {
+            "devices": {
+                "CUDA_VISIBLE_DEVICES": "0",
+                "torch.version.cuda": "11.7",
+                "torch.backends.cudnn.version()": 8500,
+                "torch.cuda.nccl.version()": [
+                    2,
+                    14,
+                    3
+                ],
+                "driver": "560.35.03",
+                "0": {
+                    "name": "Tesla P100-PCIE-16GB",
+                    "total_memory": 17179869184
+                }
+            }
+        },
+        "dataset": "california_housing",
+        "algorithm": "catboost_",
+        "metrics": {
+            "train": {
+                "rmse": 0.3715090464105269,
+                "score": -0.3715090464105269
+            },
+            "val": {
+                "rmse": 0.4625124033414961,
+                "score": -0.4625124033414961
+            },
+            "test": {
+                "rmse": 0.44604659853684836,
+                "score": -0.44604659853684836
+            }
+        },
+        "time": "0:00:23",
+        "trial_id": 14,
+        "tuning_time": "0:13:33"
+    },
+    {
+        "config": {
+            "data": {
+                "path": "rtdl_revisiting_models/data/california_housing",
+                "y_policy": "mean_std"
+            },
+            "fit": {
+                "logging_level": "Verbose"
+            },
+            "model": {
+                "bagging_temperature": 0.007081756652276061,
+                "depth": 8,
+                "early_stopping_rounds": 50,
+                "iterations": 1000,
+                "l2_leaf_reg": 9.57184264564346,
+                "leaf_estimation_iterations": 3,
+                "learning_rate": 0.14465041703605178,
+                "metric_period": 10,
+                "od_pval": 0.001,
+                "task_type": "GPU",
+                "thread_count": 1
+            },
+            "seed": 0
+        },
+        "environment": {
+            "devices": {
+                "CUDA_VISIBLE_DEVICES": "0",
+                "torch.version.cuda": "11.7",
+                "torch.backends.cudnn.version()": 8500,
+                "torch.cuda.nccl.version()": [
+                    2,
+                    14,
+                    3
+                ],
+                "driver": "560.35.03",
+                "0": {
+                    "name": "Tesla P100-PCIE-16GB",
+                    "total_memory": 17179869184
+                }
+            }
+        },
+        "dataset": "california_housing",
+        "algorithm": "catboost_",
+        "metrics": {
+            "train": {
+                "rmse": 0.3756699985339549,
+                "score": -0.3756699985339549
+            },
+            "val": {
+                "rmse": 0.4631039593675604,
+                "score": -0.4631039593675604
+            },
+            "test": {
+                "rmse": 0.44829273863942565,
+                "score": -0.44829273863942565
+            }
+        },
+        "time": "0:00:20",
+        "trial_id": 15,
+        "tuning_time": "0:13:57"
+    },
+    {
+        "config": {
+            "data": {
+                "path": "rtdl_revisiting_models/data/california_housing",
+                "y_policy": "mean_std"
+            },
+            "fit": {
+                "logging_level": "Verbose"
+            },
+            "model": {
+                "bagging_temperature": 0.017600636416721716,
+                "depth": 8,
+                "early_stopping_rounds": 50,
+                "iterations": 1000,
+                "l2_leaf_reg": 9.49070608285757,
+                "leaf_estimation_iterations": 3,
+                "learning_rate": 0.7367424813137626,
+                "metric_period": 10,
+                "od_pval": 0.001,
+                "task_type": "GPU",
+                "thread_count": 1
+            },
+            "seed": 0
+        },
+        "environment": {
+            "devices": {
+                "CUDA_VISIBLE_DEVICES": "0",
+                "torch.version.cuda": "11.7",
+                "torch.backends.cudnn.version()": 8500,
+                "torch.cuda.nccl.version()": [
+                    2,
+                    14,
+                    3
+                ],
+                "driver": "560.35.03",
+                "0": {
+                    "name": "Tesla P100-PCIE-16GB",
+                    "total_memory": 17179869184
+                }
+            }
+        },
+        "dataset": "california_housing",
+        "algorithm": "catboost_",
+        "metrics": {
+            "train": {
+                "rmse": 0.3487624154326391,
+                "score": -0.3487624154326391
+            },
+            "val": {
+                "rmse": 0.4877312712215865,
+                "score": -0.4877312712215865
+            },
+            "test": {
+                "rmse": 0.46832189900413274,
+                "score": -0.46832189900413274
+            }
+        },
+        "time": "0:00:18",
+        "trial_id": 16,
+        "tuning_time": "0:14:18"
+    },
+    {
+        "config": {
+            "data": {
+                "path": "rtdl_revisiting_models/data/california_housing",
+                "y_policy": "mean_std"
+            },
+            "fit": {
+                "logging_level": "Verbose"
+            },
+            "model": {
+                "bagging_temperature": 0.16239358351841204,
+                "depth": 10,
+                "early_stopping_rounds": 50,
+                "iterations": 1000,
+                "l2_leaf_reg": 9.731200307634529,
+                "leaf_estimation_iterations": 4,
+                "learning_rate": 0.006420649108406292,
+                "metric_period": 10,
+                "od_pval": 0.001,
+                "task_type": "GPU",
+                "thread_count": 1
+            },
+            "seed": 0
+        },
+        "environment": {
+            "devices": {
+                "CUDA_VISIBLE_DEVICES": "0",
+                "torch.version.cuda": "11.7",
+                "torch.backends.cudnn.version()": 8500,
+                "torch.cuda.nccl.version()": [
+                    2,
+                    14,
+                    3
+                ],
+                "driver": "560.35.03",
+                "0": {
+                    "name": "Tesla P100-PCIE-16GB",
+                    "total_memory": 17179869184
+                }
+            }
+        },
+        "dataset": "california_housing",
+        "algorithm": "catboost_",
+        "metrics": {
+            "train": {
+                "rmse": 0.4638976110324047,
+                "score": -0.4638976110324047
+            },
+            "val": {
+                "rmse": 0.5076351708646137,
+                "score": -0.5076351708646137
+            },
+            "test": {
+                "rmse": 0.497216864976451,
+                "score": -0.497216864976451
+            }
+        },
+        "time": "0:03:16",
+        "trial_id": 17,
+        "tuning_time": "0:17:38"
+    },
+    {
+        "config": {
+            "data": {
+                "path": "rtdl_revisiting_models/data/california_housing",
+                "y_policy": "mean_std"
+            },
+            "fit": {
+                "logging_level": "Verbose"
+            },
+            "model": {
+                "bagging_temperature": 0.19284002091495506,
+                "depth": 8,
+                "early_stopping_rounds": 50,
+                "iterations": 1000,
+                "l2_leaf_reg": 2.0785214927630418,
+                "leaf_estimation_iterations": 3,
+                "learning_rate": 0.1589081922851343,
+                "metric_period": 10,
+                "od_pval": 0.001,
+                "task_type": "GPU",
+                "thread_count": 1
+            },
+            "seed": 0
+        },
+        "environment": {
+            "devices": {
+                "CUDA_VISIBLE_DEVICES": "0",
+                "torch.version.cuda": "11.7",
+                "torch.backends.cudnn.version()": 8500,
+                "torch.cuda.nccl.version()": [
+                    2,
+                    14,
+                    3
+                ],
+                "driver": "560.35.03",
+                "0": {
+                    "name": "Tesla P100-PCIE-16GB",
+                    "total_memory": 17179869184
+                }
+            }
+        },
+        "dataset": "california_housing",
+        "algorithm": "catboost_",
+        "metrics": {
+            "train": {
+                "rmse": 0.3414095086837407,
+                "score": -0.3414095086837407
+            },
+            "val": {
+                "rmse": 0.45593924756997517,
+                "score": -0.45593924756997517
+            },
+            "test": {
+                "rmse": 0.43920605690733355,
+                "score": -0.43920605690733355
+            }
+        },
+        "time": "0:00:27",
+        "trial_id": 18,
+        "tuning_time": "0:18:08"
+    },
+    {
+        "config": {
+            "data": {
+                "path": "rtdl_revisiting_models/data/california_housing",
+                "y_policy": "mean_std"
+            },
+            "fit": {
+                "logging_level": "Verbose"
+            },
+            "model": {
+                "bagging_temperature": 0.16704935416605998,
+                "depth": 9,
+                "early_stopping_rounds": 50,
+                "iterations": 1000,
+                "l2_leaf_reg": 2.112463714035586,
+                "leaf_estimation_iterations": 4,
+                "learning_rate": 0.0064987997547952215,
+                "metric_period": 10,
+                "od_pval": 0.001,
+                "task_type": "GPU",
+                "thread_count": 1
+            },
+            "seed": 0
+        },
+        "environment": {
+            "devices": {
+                "CUDA_VISIBLE_DEVICES": "0",
+                "torch.version.cuda": "11.7",
+                "torch.backends.cudnn.version()": 8500,
+                "torch.cuda.nccl.version()": [
+                    2,
+                    14,
+                    3
+                ],
+                "driver": "560.35.03",
+                "0": {
+                    "name": "Tesla P100-PCIE-16GB",
+                    "total_memory": 17179869184
+                }
+            }
+        },
+        "dataset": "california_housing",
+        "algorithm": "catboost_",
+        "metrics": {
+            "train": {
+                "rmse": 0.46283061893846117,
+                "score": -0.46283061893846117
+            },
+            "val": {
+                "rmse": 0.5061913613490006,
+                "score": -0.5061913613490006
+            },
+            "test": {
+                "rmse": 0.494086172644479,
+                "score": -0.494086172644479
+            }
+        },
+        "time": "0:01:50",
+        "trial_id": 19,
+        "tuning_time": "0:20:01"
+    }
+]

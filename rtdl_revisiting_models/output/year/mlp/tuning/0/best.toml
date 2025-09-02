@@ -1,0 +1,19 @@
+seed = 0
+
+[data]
+normalization = 'quantile'
+path = 'rtdl_revisiting_models/data/year'
+y_policy = 'mean_std'
+
+[model]
+d_layers = [ 883, 355, 361 ]
+dropout = 0.4669968076241986
+
+[training]
+batch_size = 1024
+eval_batch_size = 8192
+lr = 9.8339292120885364e-05
+n_epochs = 200
+optimizer = 'adamw'
+patience = 16
+weight_decay = 0.0

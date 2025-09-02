@@ -1,0 +1,20 @@
+seed = 0
+
+[data]
+path = 'rtdl_revisiting_models/data/covtype'
+
+[fit]
+logging_level = 'Verbose'
+
+[model]
+bagging_temperature = 0.40597578996718608
+depth = 10
+early_stopping_rounds = 50
+iterations = 1000
+l2_leaf_reg = 2.0289441966671209
+leaf_estimation_iterations = 1
+learning_rate = 0.17341340131242086
+metric_period = 10
+od_pval = 0.001
+task_type = 'GPU'
+thread_count = 1

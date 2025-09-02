@@ -1,0 +1,18 @@
+seed = 0
+
+[data]
+normalization = 'quantile'
+path = 'rtdl_revisiting_models/data/covtype'
+
+[model]
+d_layers = [ 328, 255, 255, 255, 255, 255, 255, 255, 255, 255, 888 ]
+dropout = 0.0
+
+[training]
+batch_size = 1024
+eval_batch_size = 8192
+lr = 0.0017670175120597154
+n_epochs = 200
+optimizer = 'adamw'
+patience = 16
+weight_decay = 0.00014722895358688096

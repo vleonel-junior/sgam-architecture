@@ -1,0 +1,27 @@
+seed = 0
+
+[data]
+cat_policy = 'indices'
+normalization = 'quantile'
+path = 'rtdl_revisiting_models/data/adult'
+
+[model]
+activation = 'reglu'
+attention_dropout = 0.23315538642815314
+d_ffn_factor = 1.155517850669872
+d_token = 136
+ffn_dropout = 0.055187570582152567
+initialization = 'kaiming'
+n_heads = 8
+n_layers = 3
+prenormalization = true
+residual_dropout = 0.073745034132192827
+
+[training]
+batch_size = 256
+eval_batch_size = 8192
+lr = 0.00043851702560851274
+n_epochs = 200
+optimizer = 'adamw'
+patience = 16
+weight_decay = 1.9557071673386743e-06

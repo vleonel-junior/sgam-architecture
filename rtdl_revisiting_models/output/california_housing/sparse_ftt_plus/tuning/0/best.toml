@@ -1,0 +1,27 @@
+seed = 0
+
+[data]
+normalization = 'quantile'
+path = 'rtdl_revisiting_models/data/california_housing'
+y_policy = 'mean_std'
+
+[model]
+activation = 'reglu'
+attention_dropout = 0.4893655857978424
+d_ffn_factor = 1.4927663702782361
+d_token = 440
+ffn_dropout = 0.3228312065194941
+initialization = 'kaiming'
+n_heads = 8
+n_layers = 4
+prenormalization = true
+residual_dropout = 0.0078294812450280509
+
+[training]
+batch_size = 256
+eval_batch_size = 8192
+lr = 4.1392860116441787e-05
+n_epochs = 200
+optimizer = 'adamw'
+patience = 16
+weight_decay = 1.520717426051782e-05
