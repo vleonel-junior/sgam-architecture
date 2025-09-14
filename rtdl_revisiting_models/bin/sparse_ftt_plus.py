@@ -97,7 +97,7 @@ class InterpretableMultiHeadAttention(nn.Module):
     - Application de l'attention moyennée au V partagé
     """
 
-    def __init__(self, d_model: int, n_heads: int, dropout: float = 0.0, initialization: str = "kaiming"):
+    def __init__(self, d_model: int, n_heads: int, dropout: float = 0.2, initialization: str = "kaiming", use_glu: bool = False):
         super().__init__()
         assert d_model % n_heads == 0, 'd_model must be a multiple of n_heads'
         assert initialization in ['kaiming', 'xavier']
@@ -105,36 +105,37 @@ class InterpretableMultiHeadAttention(nn.Module):
         self.n_heads = n_heads
         self.d_model = d_model
         self.d_head = d_model // n_heads
-        self.d_v = d_model  # d_V dans les équations TFT
+        self.d_v = self.d_head  # Dimension de V par tête
         
-        # Projections Q, K par tête (comme équation 12)
-        self.W_q = nn.Linear(d_model, d_model, bias=True)  # Toutes les têtes Q
-        self.W_k = nn.Linear(d_model, d_model, bias=True)  # Toutes les têtes K
+        # Projections Q, K par tête
+        self.W_q = nn.Linear(d_model, d_model, bias=True)
+        self.W_k = nn.Linear(d_model, d_model, bias=True)
         
-        # V partagé entre toutes les têtes (équation 14-15)
-        self.W_v = nn.Linear(d_model, self.d_v, bias=True)  # V W_V partagé
+        # V partagé entre toutes les têtes
+        self.W_v = nn.Linear(d_model, self.d_v, bias=True)
         
-        # Projection finale W_H (équation 13)
-        self.W_h = nn.Linear(self.d_v, d_model, bias=True) if n_heads > 1 else None
+        # Projection finale W_H
+        self.W_h = nn.Linear(self.d_v, d_model, bias=True)
+        
+        # GLU gate (optionnel)
+        self.use_glu = use_glu
+        if self.use_glu:
+            self.W_g = nn.Linear(d_model, d_model, bias=True)
         
         self.dropout = nn.Dropout(dropout) if dropout > 0.0 else None
         self.scale = 1.0 / math.sqrt(self.d_head)
         
         # Initialisation
-        for m in [self.W_q, self.W_k, self.W_v]:
+        for m in [self.W_q, self.W_k, self.W_v, self.W_h]:
             if initialization == 'xavier':
                 nn.init.xavier_uniform_(m.weight, gain=1 / math.sqrt(2))
             elif initialization == 'kaiming':
                 nn.init.kaiming_uniform_(m.weight, mode='fan_in', nonlinearity='linear')
             if m.bias is not None:
                 nn.init.zeros_(m.bias)
-                
-        if self.W_h is not None:
-            if initialization == 'xavier':
-                nn.init.xavier_uniform_(self.W_h.weight)
-            elif initialization == 'kaiming':
-                nn.init.kaiming_uniform_(self.W_h.weight, mode='fan_in', nonlinearity='linear')
-            nn.init.zeros_(self.W_h.bias)
+        if self.use_glu and self.W_g is not None:
+            nn.init.xavier_uniform_(self.W_g.weight, gain=1 / math.sqrt(2))
+            nn.init.zeros_(self.W_g.bias)
 
     def forward(
         self,
@@ -158,7 +159,7 @@ class InterpretableMultiHeadAttention(nn.Module):
             k = key_compression(k.transpose(1, 2)).transpose(1, 2)
             v = value_compression(v.transpose(1, 2)).transpose(1, 2)
         
-        # Reshape Q, K pour les têtes (utiliser les longueurs correctes pour Q et KV)
+        # Reshape Q, K pour les têtes 
         q = q.view(batch_size, seq_len_q, self.n_heads, self.d_head).transpose(1, 2)  # (B, H, Tq, d_head)
         k = k.view(batch_size, seq_len_k, self.n_heads, self.d_head).transpose(1, 2)  # (B, H, Tk, d_head)
         
@@ -182,6 +183,13 @@ class InterpretableMultiHeadAttention(nn.Module):
         # Équation 13 : Projection finale H̃ W_H
         if self.W_h is not None:
             output = self.W_h(output)  # (B, T, d_model)
+        
+        # GLU gate (optionnel)
+        if self.use_glu:
+            gate = torch.sigmoid(self.W_g(x_q))
+            output = x_q + gate * output
+        else:
+            output = x_q + output
         
         return output
 
