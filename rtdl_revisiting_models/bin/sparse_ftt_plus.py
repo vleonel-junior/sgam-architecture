@@ -167,7 +167,8 @@ class InterpretableMultiHeadAttention(nn.Module):
         attention_logits = torch.matmul(q, k.transpose(-2, -1)) * self.scale  # (B, H, T, T)
         
         # Sparsemax par tête au lieu de softmax
-        attention_probs_per_head = sparsemax(attention_logits)  # (B, H, T, T)
+        # attention_probs_per_head = sparsemax(attention_logits)  # (B, H, T, T)
+        attention_probs_per_head = F.softmax(attention_logits, dim=-1)
         
         if self.dropout is not None:
             attention_probs_per_head = self.dropout(attention_probs_per_head)
@@ -221,6 +222,7 @@ class Transformer(nn.Module):
         activation: str,
         prenormalization: bool,
         initialization: str,
+        use_glu: bool = False,
         # linformer
         kv_compression: ty.Optional[float],
         kv_compression_sharing: ty.Optional[str],
@@ -257,7 +259,7 @@ class Transformer(nn.Module):
             layer = nn.ModuleDict(
                 {
                     'attention': InterpretableMultiHeadAttention(
-                        d_model=d_token, n_heads=n_heads, dropout=attention_dropout, initialization=initialization
+                        d_model=d_token, n_heads=n_heads, dropout=attention_dropout, initialization=initialization, use_glu=use_glu
                     ),
                     'linear0': nn.Linear(
                         d_token, d_hidden * (2 if activation.endswith('glu') else 1)
@@ -353,6 +355,7 @@ if __name__ == "__main__":
     args['model'].setdefault('token_bias', True)
     args['model'].setdefault('kv_compression', None)
     args['model'].setdefault('kv_compression_sharing', None)
+    args['model'].setdefault('use_glu', False)
 
     # %%
     try:
