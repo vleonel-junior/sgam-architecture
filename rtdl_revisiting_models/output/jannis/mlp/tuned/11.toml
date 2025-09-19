@@ -1,0 +1,18 @@
+seed = 11
+
+[data]
+normalization = 'quantile'
+path = 'rtdl_revisiting_models/data/jannis'
+
+[model]
+d_layers = [ 407, 413 ]
+dropout = 0.39780372539198272
+
+[training]
+batch_size = 512
+eval_batch_size = 8192
+lr = 0.00057894993132158825
+n_epochs = 200
+optimizer = 'adamw'
+patience = 16
+weight_decay = 0.0

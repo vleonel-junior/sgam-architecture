@@ -1,0 +1,20 @@
+seed = 4
+
+[data]
+path = 'rtdl_revisiting_models/data/higgs_small'
+
+[fit]
+logging_level = 'Verbose'
+
+[model]
+bagging_temperature = 0.32463668104783983
+depth = 7
+early_stopping_rounds = 50
+iterations = 1000
+l2_leaf_reg = 2.2154237675001975
+leaf_estimation_iterations = 9
+learning_rate = 0.065894462085702862
+metric_period = 10
+od_pval = 0.001
+task_type = 'GPU'
+thread_count = 1

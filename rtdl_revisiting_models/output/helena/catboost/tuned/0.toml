@@ -1,0 +1,20 @@
+seed = 0
+
+[data]
+path = 'rtdl_revisiting_models/data/helena'
+
+[fit]
+logging_level = 'Verbose'
+
+[model]
+bagging_temperature = 0.61763549707587706
+depth = 7
+early_stopping_rounds = 50
+iterations = 1000
+l2_leaf_reg = 4.1393676083575439
+leaf_estimation_iterations = 10
+learning_rate = 0.025650834317709894
+metric_period = 10
+od_pval = 0.001
+task_type = 'GPU'
+thread_count = 1

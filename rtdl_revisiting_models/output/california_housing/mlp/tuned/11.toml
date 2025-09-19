@@ -1,0 +1,19 @@
+seed = 11
+
+[data]
+normalization = 'quantile'
+path = 'rtdl_revisiting_models/data/california_housing'
+y_policy = 'mean_std'
+
+[model]
+d_layers = [ 271, 291, 291, 291, 291, 291, 474 ]
+dropout = 0.01010919872016286
+
+[training]
+batch_size = 256
+eval_batch_size = 8192
+lr = 0.0031467304061660057
+n_epochs = 200
+optimizer = 'adamw'
+patience = 16
+weight_decay = 0.00086269052207149015

@@ -1,0 +1,21 @@
+seed = 6
+
+[data]
+path = 'rtdl_revisiting_models/data/california_housing'
+y_policy = 'mean_std'
+
+[fit]
+logging_level = 'Verbose'
+
+[model]
+bagging_temperature = 0.19284002091495506
+depth = 8
+early_stopping_rounds = 50
+iterations = 1000
+l2_leaf_reg = 2.0785214927630418
+leaf_estimation_iterations = 3
+learning_rate = 0.15890819228513431
+metric_period = 10
+od_pval = 0.001
+task_type = 'GPU'
+thread_count = 1
