@@ -1,0 +1,68 @@
+{
+    "dataset": "california_housing",
+    "algorithm": "mlp",
+    "config": {
+        "data": {
+            "normalization": "quantile",
+            "path": "rtdl_revisiting_models/data/california_housing",
+            "y_policy": "mean_std"
+        },
+        "model": {
+            "d_layers": [
+                271,
+                291,
+                291,
+                291,
+                291,
+                291,
+                474
+            ],
+            "dropout": 0.01010919872016286
+        },
+        "seed": 9,
+        "training": {
+            "batch_size": 256,
+            "eval_batch_size": 8192,
+            "lr": 0.0031467304061660057,
+            "n_epochs": 200,
+            "optimizer": "adamw",
+            "patience": 16,
+            "weight_decay": 0.0008626905220714901
+        }
+    },
+    "environment": {
+        "devices": {
+            "CUDA_VISIBLE_DEVICES": "0",
+            "torch.version.cuda": "11.7",
+            "torch.backends.cudnn.version()": 8500,
+            "torch.cuda.nccl.version()": [
+                2,
+                14,
+                3
+            ],
+            "driver": "560.35.03",
+            "0": {
+                "name": "Tesla P100-PCIE-16GB",
+                "total_memory": 17179869184
+            }
+        }
+    },
+    "epoch_size": 52,
+    "n_parameters": 560362,
+    "best_epoch": 32,
+    "metrics": {
+        "train": {
+            "rmse": 0.4210011944773126,
+            "score": -0.4210011944773126
+        },
+        "val": {
+            "rmse": 0.5135827490447741,
+            "score": -0.5135827490447741
+        },
+        "test": {
+            "rmse": 0.5126814217031469,
+            "score": -0.5126814217031469
+        }
+    },
+    "time": "0:00:09"
+}
