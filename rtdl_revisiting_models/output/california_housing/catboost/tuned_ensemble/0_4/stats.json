@@ -1,0 +1,29 @@
+{
+    "dataset": "california_housing",
+    "algorithm": "catboost_",
+    "config": {
+        "source": "rtdl_revisiting_models\\output\\california_housing\\catboost\\tuned",
+        "seeds": [
+            0,
+            1,
+            2,
+            3,
+            4
+        ],
+        "count": 5
+    },
+    "metrics": {
+        "train": {
+            "rmse": 0.33937976130706915,
+            "score": -0.33937976130706915
+        },
+        "val": {
+            "rmse": 0.4488504972197513,
+            "score": -0.4488504972197513
+        },
+        "test": {
+            "rmse": 0.43034226772441364,
+            "score": -0.43034226772441364
+        }
+    }
+}

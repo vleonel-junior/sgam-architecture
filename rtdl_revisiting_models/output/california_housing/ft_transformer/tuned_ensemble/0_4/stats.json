@@ -1,0 +1,29 @@
+{
+    "dataset": "california_housing",
+    "algorithm": "ft_transformer",
+    "config": {
+        "source": "rtdl_revisiting_models\\output\\california_housing\\ft_transformer\\tuned",
+        "seeds": [
+            0,
+            1,
+            2,
+            3,
+            4
+        ],
+        "count": 5
+    },
+    "metrics": {
+        "train": {
+            "rmse": 0.3822967061012473,
+            "score": -0.3822967061012473
+        },
+        "val": {
+            "rmse": 0.4606712280861715,
+            "score": -0.4606712280861715
+        },
+        "test": {
+            "rmse": 0.4563046328998656,
+            "score": -0.4563046328998656
+        }
+    }
+}

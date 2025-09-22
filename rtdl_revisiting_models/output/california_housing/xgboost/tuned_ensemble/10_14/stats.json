@@ -1,0 +1,29 @@
+{
+    "dataset": "california_housing",
+    "algorithm": "xgboost_",
+    "config": {
+        "source": "rtdl_revisiting_models\\output\\california_housing\\xgboost\\tuned",
+        "seeds": [
+            10,
+            11,
+            12,
+            13,
+            14
+        ],
+        "count": 5
+    },
+    "metrics": {
+        "train": {
+            "rmse": 0.2075184013020772,
+            "score": -0.2075184013020772
+        },
+        "val": {
+            "rmse": 0.44901073002983916,
+            "score": -0.44901073002983916
+        },
+        "test": {
+            "rmse": 0.4381996974630139,
+            "score": -0.4381996974630139
+        }
+    }
+}

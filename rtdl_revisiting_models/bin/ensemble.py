@@ -5,7 +5,7 @@ from copy import deepcopy
 import numpy as np
 from scipy.special import expit, softmax
 
-from rtdl_revisiting_models import lib
+import lib
 import lib.env as env
 
 parser = argparse.ArgumentParser(
@@ -56,12 +56,19 @@ for seeds in [range(0, 5), range(5, 10), range(10, 15)]:
     stats['config']['count'] = len(seeds)
     for part in PARTS:
         single_predictions = predictions[part]  # type: ignore[code]
+        
+        # Appliquer les transformations appropriées selon le type de tâche et d'algorithme
         if D.is_binclass and not algorithm_is_gbdt:
+            # Pour la classification binaire avec des algorithmes non-GBDT,
+            # appliquer sigmoid pour convertir logits en probabilités
             single_predictions = expit(single_predictions)
         elif D.is_multiclass and not algorithm_is_gbdt:
+            # Pour la classification multi-classe avec des algorithmes non-GBDT,
+            # appliquer softmax pour convertir logits en probabilités
             single_predictions = softmax(single_predictions, -1)
-        else:
-            assert D.is_regression
+        # Pour les autres cas (régression ou GBDT), pas de transformation nécessaire
+        # car les prédictions sont déjà dans le bon format
+        
         stats['metrics'][part] = lib.calculate_metrics(
             D.info['task_type'],
             Y[part],  # type: ignore[code]
