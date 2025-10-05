@@ -72,62 +72,18 @@ Desktop.ini
 # RTDL datasets (too large for git - 4GB)
 *.tar.gz
 
-rtdl_revisiting_models/output/adult/**/tuned/**
-!rtdl_revisiting_models/output/adult/**/tuned/
-!rtdl_revisiting_models/output/adult/**/tuned/**/
-!rtdl_revisiting_models/output/adult/**/tuned/**/DONE
-!rtdl_revisiting_models/output/adult/**/tuned/**/stats.json
+# Ignore all checkpoints in output
+rtdl_revisiting_models/output/**/checkpoint.pt
 
-rtdl_revisiting_models/output/adult/**/tuning/**
-!rtdl_revisiting_models/output/adult/**/tuning/
-!rtdl_revisiting_models/output/adult/**/tuning/**/
-!rtdl_revisiting_models/output/adult/**/tuning/**/DONE
-!rtdl_revisiting_models/output/adult/**/tuning/**/stats.json
+# Ignore all content in tuned/tuning directories, but keep specific files
+rtdl_revisiting_models/output/**/tuned/**
+!rtdl_revisiting_models/output/**/tuned/
+!rtdl_revisiting_models/output/**/tuned/**/
+!rtdl_revisiting_models/output/**/tuned/**/DONE
+!rtdl_revisiting_models/output/**/tuned/**/stats.json
 
-rtdl_revisiting_models/output/california_housing/**/tuned/**
-!rtdl_revisiting_models/output/california_housing/**/tuned/
-!rtdl_revisiting_models/output/california_housing/**/tuned/**/
-!rtdl_revisiting_models/output/california_housing/**/tuned/**/DONE
-!rtdl_revisiting_models/output/california_housing/**/tuned/**/stats.json
-
-rtdl_revisiting_models/output/california_housing/**/tuning/**
-!rtdl_revisiting_models/output/california_housing/**/tuning/
-!rtdl_revisiting_models/output/california_housing/**/tuning/**/
-!rtdl_revisiting_models/output/california_housing/**/tuning/**/DONE
-!rtdl_revisiting_models/output/california_housing/**/tuning/**/stats.json
-
-rtdl_revisiting_models/output/helena/**/tuned/**
-!rtdl_revisiting_models/output/helena/**/tuned/
-!rtdl_revisiting_models/output/helena/**/tuned/**/
-!rtdl_revisiting_models/output/helena/**/tuned/**/DONE
-!rtdl_revisiting_models/output/helena/**/tuned/**/stats.json
-
-rtdl_revisiting_models/output/helena/**/tuning/**
-!rtdl_revisiting_models/output/helena/**/tuning/
-!rtdl_revisiting_models/output/helena/**/tuning/**/
-!rtdl_revisiting_models/output/helena/**/tuning/**/DONE
-!rtdl_revisiting_models/output/helena/**/tuning/**/stats.json
-
-rtdl_revisiting_models/output/higgs_small/**/tuned/**
-!rtdl_revisiting_models/output/higgs_small/**/tuned/
-!rtdl_revisiting_models/output/higgs_small/**/tuned/**/
-!rtdl_revisiting_models/output/higgs_small/**/tuned/**/DONE
-!rtdl_revisiting_models/output/higgs_small/**/tuned/**/stats.json
-
-rtdl_revisiting_models/output/higgs_small/**/tuning/**
-!rtdl_revisiting_models/output/higgs_small/**/tuning/
-!rtdl_revisiting_models/output/higgs_small/**/tuning/**/
-!rtdl_revisiting_models/output/higgs_small/**/tuning/**/DONE
-!rtdl_revisiting_models/output/higgs_small/**/tuning/**/stats.json
-
-rtdl_revisiting_models/output/jannis/**/tuned/**
-!rtdl_revisiting_models/output/jannis/**/tuned/
-!rtdl_revisiting_models/output/jannis/**/tuned/**/
-!rtdl_revisiting_models/output/jannis/**/tuned/**/DONE
-!rtdl_revisiting_models/output/jannis/**/tuned/**/stats.json
-
-rtdl_revisiting_models/output/jannis/**/tuning/**
-!rtdl_revisiting_models/output/jannis/**/tuning/
-!rtdl_revisiting_models/output/jannis/**/tuning/**/
-!rtdl_revisiting_models/output/jannis/**/tuning/**/DONE
-!rtdl_revisiting_models/output/jannis/**/tuning/**/stats.json
+rtdl_revisiting_models/output/**/tuning/**
+!rtdl_revisiting_models/output/**/tuning/
+!rtdl_revisiting_models/output/**/tuning/**/
+!rtdl_revisiting_models/output/**/tuning/**/DONE
+!rtdl_revisiting_models/output/**/tuning/**/stats.json
