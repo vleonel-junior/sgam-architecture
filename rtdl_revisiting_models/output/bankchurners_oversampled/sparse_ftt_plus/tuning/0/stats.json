@@ -1,0 +1,244 @@
+{
+    "config": {
+        "base_config": {
+            "data": {
+                "cat_policy": "indices",
+                "normalization": "quantile",
+                "path": "rtdl_revisiting_models/data/bankchurners_oversampled"
+            },
+            "model": {
+                "activation": "reglu",
+                "initialization": "kaiming",
+                "n_heads": 8,
+                "prenormalization": true
+            },
+            "seed": 0,
+            "training": {
+                "batch_size": 256,
+                "eval_batch_size": 8192,
+                "n_epochs": 200,
+                "optimizer": "adamw",
+                "patience": 16
+            }
+        },
+        "optimization": {
+            "options": {
+                "n_trials": 20
+            },
+            "sampler": {
+                "seed": 0
+            },
+            "space": {
+                "model": {
+                    "attention_dropout": [
+                        "uniform",
+                        0.0,
+                        0.5
+                    ],
+                    "d_ffn_factor": [
+                        "$d_ffn_factor",
+                        1.0,
+                        4.0
+                    ],
+                    "d_token": [
+                        "$d_token",
+                        64,
+                        512
+                    ],
+                    "ffn_dropout": [
+                        "uniform",
+                        0.0,
+                        0.5
+                    ],
+                    "n_layers": [
+                        "int",
+                        1,
+                        4
+                    ],
+                    "residual_dropout": [
+                        "?uniform",
+                        0.0,
+                        0.0,
+                        0.2
+                    ]
+                },
+                "training": {
+                    "lr": [
+                        "loguniform",
+                        1e-05,
+                        0.001
+                    ],
+                    "weight_decay": [
+                        "loguniform",
+                        1e-06,
+                        0.001
+                    ]
+                }
+            }
+        },
+        "program": "rtdl_revisiting_models/bin/sparse_ftt_plus.py"
+    },
+    "environment": {
+        "devices": {
+            "CUDA_VISIBLE_DEVICES": "0",
+            "torch.version.cuda": "11.7",
+            "torch.backends.cudnn.version()": 8500,
+            "torch.cuda.nccl.version()": [
+                2,
+                14,
+                3
+            ],
+            "driver": "560.35.03",
+            "0": {
+                "name": "Tesla P100-PCIE-16GB",
+                "total_memory": 17179869184
+            }
+        }
+    },
+    "best_stats": {
+        "dataset": "bankchurners_oversampled",
+        "algorithm": "sparse_ftt_plus",
+        "config": {
+            "data": {
+                "cat_policy": "indices",
+                "normalization": "quantile",
+                "path": "rtdl_revisiting_models/data/bankchurners_oversampled"
+            },
+            "model": {
+                "activation": "reglu",
+                "attention_dropout": 0.2073309699952618,
+                "d_ffn_factor": 1.1957778908759207,
+                "d_token": 416,
+                "ffn_dropout": 0.22807516610827427,
+                "initialization": "kaiming",
+                "n_heads": 8,
+                "n_layers": 3,
+                "prenormalization": true,
+                "residual_dropout": 0.12241914454448428
+            },
+            "seed": 0,
+            "training": {
+                "batch_size": 256,
+                "eval_batch_size": 8192,
+                "lr": 0.0001713436419711966,
+                "n_epochs": 200,
+                "optimizer": "adamw",
+                "patience": 16,
+                "weight_decay": 0.0006780227021579834
+            }
+        },
+        "environment": {
+            "devices": {
+                "CUDA_VISIBLE_DEVICES": "0",
+                "torch.version.cuda": "11.7",
+                "torch.backends.cudnn.version()": 8500,
+                "torch.cuda.nccl.version()": [
+                    2,
+                    14,
+                    3
+                ],
+                "driver": "560.35.03",
+                "0": {
+                    "name": "Tesla P100-PCIE-16GB",
+                    "total_memory": 17179869184
+                }
+            }
+        },
+        "epoch_size": 38,
+        "n_parameters": 3053251,
+        "best_epoch": 26,
+        "metrics": {
+            "train": {
+                "0": {
+                    "precision": 0.863653483992467,
+                    "recall": 0.960016746912288,
+                    "f1-score": 0.9092891840983444,
+                    "support": 4777
+                },
+                "1": {
+                    "precision": 0.954995287464656,
+                    "recall": 0.8484404437931756,
+                    "f1-score": 0.8985700033255737,
+                    "support": 4777
+                },
+                "accuracy": 0.9042285953527318,
+                "macro avg": {
+                    "precision": 0.9093243857285616,
+                    "recall": 0.9042285953527318,
+                    "f1-score": 0.903929593711959,
+                    "support": 9554
+                },
+                "weighted avg": {
+                    "precision": 0.9093243857285614,
+                    "recall": 0.9042285953527318,
+                    "f1-score": 0.9039295937119592,
+                    "support": 9554
+                },
+                "roc_auc": 0.9642706317853291,
+                "score": 0.9042285953527318
+            },
+            "val": {
+                "0": {
+                    "precision": 0.8794974300399772,
+                    "recall": 0.9667294413057125,
+                    "f1-score": 0.9210526315789475,
+                    "support": 1593
+                },
+                "1": {
+                    "precision": 0.7871485943775101,
+                    "recall": 0.48157248157248156,
+                    "f1-score": 0.5975609756097561,
+                    "support": 407
+                },
+                "accuracy": 0.868,
+                "macro avg": {
+                    "precision": 0.8333230122087436,
+                    "recall": 0.7241509614390971,
+                    "f1-score": 0.7593068035943518,
+                    "support": 2000
+                },
+                "weighted avg": {
+                    "precision": 0.8607044419826652,
+                    "recall": 0.868,
+                    "f1-score": 0.855222079589217,
+                    "support": 2000
+                },
+                "roc_auc": 0.8621919299885401,
+                "score": 0.868
+            },
+            "test": {
+                "0": {
+                    "precision": 0.8835734870317002,
+                    "recall": 0.9623352165725048,
+                    "f1-score": 0.9212740384615384,
+                    "support": 1593
+                },
+                "1": {
+                    "precision": 0.7735849056603774,
+                    "recall": 0.5036855036855037,
+                    "f1-score": 0.6101190476190477,
+                    "support": 407
+                },
+                "accuracy": 0.869,
+                "macro avg": {
+                    "precision": 0.8285791963460388,
+                    "recall": 0.7330103601290042,
+                    "f1-score": 0.7656965430402931,
+                    "support": 2000
+                },
+                "weighted avg": {
+                    "precision": 0.861190810722636,
+                    "recall": 0.869,
+                    "f1-score": 0.8579539978250916,
+                    "support": 2000
+                },
+                "roc_auc": 0.861900421222455,
+                "score": 0.869
+            }
+        },
+        "time": "0:00:33",
+        "trial_id": 3,
+        "tuning_time": "0:02:55"
+    },
+    "time": "0:11:20"
+}
