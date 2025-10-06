@@ -64,11 +64,15 @@ def main():
         metric_direction = datasets_info[dataset_name].split(' ')[0]
         is_rmse = metric_direction == '↓'
         
+        # Pour la régression, les scores sont des RMSE négatifs. Un score plus grand (plus proche de 0) est meilleur.
+        # La logique doit donc être la même que pour l'accuracy (chercher le max).
+        ascending_rank = False  # Toujours classer du plus grand au plus petit score.
+        
         # Classement
-        ranks[dataset_name] = mean_scores_df[dataset_name].rank(method='min', ascending=is_rmse)
+        ranks[dataset_name] = mean_scores_df[dataset_name].rank(method='min', ascending=ascending_rank)
 
         # Détermination des meilleurs résultats (en gras)
-        best_score_model = mean_scores_df[dataset_name].idxmin() if is_rmse else mean_scores_df[dataset_name].idxmax()
+        best_score_model = mean_scores_df[dataset_name].idxmax()
         bold_mask.loc[best_score_model, dataset_name] = True
         
         best_model_scores = stats[best_score_model][dataset_name]["scores"]
@@ -101,8 +105,11 @@ def main():
             mean_score = stats[model_name][dataset_name]["mean"]
             std_dev = stats[model_name][dataset_name]["std"]
             
+            # Pour la régression, afficher le RMSE positif (valeur absolue)
+            display_mean = abs(mean_score) if datasets_info[dataset_name].split(' ')[0] == '↓' else mean_score
+
             # Créer la chaîne de caractères formatée "moyenne ± écart-type"
-            formatted_score = f"{mean_score:.4f} ± {std_dev:.4f}"
+            formatted_score = f"{display_mean:.4f} ± {std_dev:.4f}"
             
             if bold_mask.loc[model_name, dataset_name]:
                 formatted_score = f"**{formatted_score}**"
