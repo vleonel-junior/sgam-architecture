@@ -10,18 +10,18 @@ OUTPUT_JSON = "report.json"
 def get_task_type_and_metric(dataset_dir: Path):
     """Trouve le type de tâche et la métrique associée pour un dataset."""
     try:
-        # On cherche un fichier de configuration pour déduire le type de tâche
-        any_config_path = next(dataset_dir.glob("*/tuning/0.toml"))
-        config = lib.load_config(any_config_path)
-        data_path = lib.get_path(config['base_config']['data']['path'])
-        info = lib.load_json(data_path / 'info.json')
+        # On cherche un fichier de statistiques pour déduire la métrique
+        any_stats_path = next(dataset_dir.glob("*/tuned_ensemble/*/stats.json"))
+        stats = lib.load_json(any_stats_path)
         
-        task_type = info['task_type']
-        metric = 'rmse' if task_type == lib.TaskType.REGRESSION else 'accuracy'
+        # Heuristique : si 'rmse' est dans les métriques, c'est une régression.
+        is_regression = "rmse" in stats.get("metrics", {}).get("test", {})
+        
+        metric = 'rmse' if is_regression else 'accuracy'
         direction = '↓' if metric == 'rmse' else '↑'
         return f"{direction} {metric}"
-    except StopIteration:
-        # Fallback si aucun toml n'est trouvé
+    except (StopIteration, KeyError):
+        # Fallback si aucun stats.json ou métrique n'est trouvé
         return "n/a"
 
 def extract_metric(stats_path: Path):
@@ -79,8 +79,8 @@ def main():
                 print(f"    Skip: Aucun score d'ensemble trouvé")
 
     # 3. Sauvegarder les résultats
-    with open(OUTPUT_JSON, 'w') as f:
-        json.dump(aggregated, f, indent=4)
+    with open(OUTPUT_JSON, 'w', encoding='utf-8') as f:
+        json.dump(aggregated, f, indent=4, ensure_ascii=False)
     
     print(f"\nJSON généré: {OUTPUT_JSON}")
 
