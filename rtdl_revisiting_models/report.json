@@ -1,8 +1,6 @@
 {
     "datasets": {
         "adult": "↑ accuracy",
-        "bankchurners": "↑ accuracy",
-        "bankchurners_oversampled": "↑ accuracy",
         "california_housing": "↓ rmse",
         "helena": "↑ accuracy",
         "higgs_small": "↑ accuracy",
@@ -14,16 +12,6 @@
                 0.875069098949696,
                 0.8751919415269332,
                 0.875069098949696
-            ],
-            "bankchurners": [
-                0.865,
-                0.8705,
-                0.865
-            ],
-            "bankchurners_oversampled": [
-                0.8695,
-                0.872,
-                0.869
             ],
             "california_housing": [
                 -0.43034226772441364,
@@ -52,16 +40,6 @@
                 0.8590995639088508,
                 0.8600208832381303
             ],
-            "bankchurners": [
-                0.871,
-                0.871,
-                0.8685
-            ],
-            "bankchurners_oversampled": [
-                0.8645,
-                0.868,
-                0.863
-            ],
             "california_housing": [
                 -0.4563046328998656,
                 -0.4470682489937241,
@@ -88,16 +66,6 @@
                 0.8565198697868681,
                 0.8562127633437749,
                 0.8542472821079786
-            ],
-            "bankchurners": [
-                0.865,
-                0.8665,
-                0.868
-            ],
-            "bankchurners_oversampled": [
-                0.864,
-                0.868,
-                0.8675
             ],
             "california_housing": [
                 -0.48818630631645227,
@@ -126,16 +94,6 @@
                 0.8578097168478594,
                 0.859406670351944
             ],
-            "bankchurners": [
-                0.871,
-                0.869,
-                0.868
-            ],
-            "bankchurners_oversampled": [
-                0.8705,
-                0.872,
-                0.868
-            ],
             "california_housing": [
                 -0.4508105300325397,
                 -0.4502869464220727,
@@ -162,16 +120,6 @@
                 0.8722437196732388,
                 0.8726736686935692,
                 0.8716909280756711
-            ],
-            "bankchurners": [
-                0.866,
-                0.866,
-                0.8665
-            ],
-            "bankchurners_oversampled": [
-                0.865,
-                0.867,
-                0.869
             ],
             "california_housing": [
                 -0.4369612549616767,
