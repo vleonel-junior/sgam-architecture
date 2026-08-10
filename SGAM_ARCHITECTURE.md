@@ -1,4 +1,4 @@
-﻿# SGAM : Sequential Gated Additive Model
+# SGAM : Sequential Gated Additive Model
 
 *Filtrage Séquentiel et Résolution de la Multicolinéarité pour Données Tabulaires*
 
@@ -107,16 +107,20 @@ $$\tilde{h}_i = s_i \cdot h_i \in \mathbb{R}^{B \times d}$$
 **Équations :**
 On définit des gates de suppression **indépendants**, asymétrisés par la norme des vecteurs pour imposer une priorité (le vecteur le plus "fort" inhibe le plus faible, pas l'inverse) :
 $$\rho_i = \|\tilde{h}_i\|_2$$
-$$\bar{w}_{ij} = \sigma(\hat{w}_{ij}) \cdot \sigma\big(\beta(\rho_j - \rho_i)\big) \in [0, 1]$$
+$$\bar{w}_{ij} = \sigma(\hat{w}_{ij}) \cdot \sigma\big(\tau(\rho_j - \rho_i)\big) \in [0, 1]$$
+
+L'intensité globale d'inhibition est strictement bornée :
+$$\alpha = \sigma(\hat{\alpha}) \in [0, 1]$$
 
 La soustraction se fait par projection de Gram-Schmidt pondérée :
 $$h_i^{\text{temp}} = \tilde{h}_i - \alpha \sum_{j \neq i} \bar{w}_{ij} \cdot \text{proj}_{\tilde{h}_j}(\tilde{h}_i)$$
 Où la projection est :
 $$\text{proj}_{\tilde{h}_j}(\tilde{h}_i) = \frac{\langle \tilde{h}_i, \tilde{h}_j \rangle}{\|\tilde{h}_j\|^2 + \epsilon} \tilde{h}_j$$
 
-**Sécurité (Anti-Overshoot) :**
-Pour éviter que des suppressions cumulées n'inversent le sens du vecteur, on applique un clip a posteriori qui borne la norme :
-$$h_i' = h_i^{\text{temp}} \cdot \min\left(1, \frac{\|\tilde{h}_i\|_2}{\|h_i^{\text{temp}}\|_2 + \epsilon}\right)$$
+**Sécurité (Anti-Overshoot et Directionnelle) :**
+Le clip de norme protège la magnitude ($\|h_i'\| \le \|\tilde{h}_i\|$), mais ne protège pas contre un retournement complet de signe si les suppressions s'accumulent (ex: $h_i^{\text{temp}} = -\tilde{h}_i$). Pour garantir la fidélité, on applique d'abord un clip directionnel (on met à 0 si le vecteur s'est retourné), puis le clip de norme :
+$$h_i^{\text{dir}} = h_i^{\text{temp}} \text{ si } \langle h_i^{\text{temp}}, \tilde{h}_i \rangle \ge 0, \text{ sinon } 0$$
+$$h_i' = h_i^{\text{dir}} \cdot \min\left(1, \frac{\|\tilde{h}_i\|_2}{\|h_i^{\text{dir}}\|_2 + \epsilon}\right)$$
 
 ---
 
@@ -163,7 +167,8 @@ Avec :
 $$\boxed{\text{Contribution}_{i \to k} = \left( W_{\text{out}}[k, :] \odot \frac{\gamma}{\text{rms}(v)} \right) \cdot z_i}$$
 $$\text{Baseline}_k = W_{\text{out}}[k, :] \cdot \beta + b_{\text{out}, k}$$
 
-Cette formulation **satisfait les axiomes d'efficacité (la somme est exacte) et de symétrie des valeurs de Shapley**, garantissant une fidélité explicative absolue pour une prédiction donnée, sans nécessiter d'approximations coûteuses.
+Cette formulation donne une **décomposition additive exacte du forward pass tel qu'il a été calculé**, satisfaisant ainsi les **axiomes d'efficacité (la somme est exacte) et de symétrie de Shapley**, sans le coût combinatoire.
+*Note de rigueur :* Il s'agit d'une attribution a posteriori (analogue en esprit à LRP), et non d'une suppression contrefactuelle. Mettre manuellement $z_i = 0$ recalculerait le dénominateur $\text{rms}(v)$, modifiant la prédiction d'une valeur légèrement différente de la contribution isolée calculée ici.
 
 La magnitude globale d'importance d'une variable se mesure simplement par :
 $$\text{Importance}_i = \|z_i\|_2$$
