@@ -1,22 +1,22 @@
-# SGAM : Sequential Gated Additive Model
+﻿# SGAM : Sequential Gated Additive Model
 
 *Filtrage Séquentiel et Résolution de la Multicolinéarité pour Données Tabulaires*
 
-*(Version corrigée et mathématiquement stricte)*
+*(Version finale corrigée : RMSNorm et Attribution Exacte a posteriori)*
 
 ---
 
-## Philosophie : Additivité Stricte et Filtrage Supervisé
+## Philosophie : Attribution Additive Exacte et Filtrage Supervisé
 
-Le SGAM est conçu pour résoudre l'explosion combinatoire des données tabulaires non pas par un mélange dense (attention), mais par un **pipeline de filtrage séquentiel et additif**. 
+Le SGAM est conçu pour résoudre l'explosion combinatoire des données tabulaires non pas par un mélange dense (attention), mais par un **pipeline de filtrage séquentiel**. 
 
-Suite à une analyse rigoureuse, l'architecture garantit deux propriétés fondamentales :
-1.  **Additivité stricte :** La prédiction finale est une combinaison linéaire des contributions individuelles de chaque feature. Il n'y a pas de MLP final brisant la décomposabilité. Le modèle est un vrai GAM (Generalized Additive Model).
-2.  **Importance déterministe basée sur la norme :** L'importance d'une variable n'est pas un coefficient de gating, mais la norme réelle du vecteur qu'elle injecte dans la somme finale.
+Contrairement à un modèle purement additif naïf (GAM classique) où les variables sont indépendantes, SGAM permet aux variables d'interagir dynamiquement (via la suppression de redondance et le contexte global) **avant** de les agréger. Cela lui confère une grande expressivité.
+
+Cependant, l'architecture garantit une propriété d'interprétabilité fondamentale : **l'attribution additive exacte a posteriori**. Pour toute prédiction *donnée*, la sortie du modèle se décompose en une somme exacte et déterministe des contributions de chaque feature, satisfaisant les axiomes d'efficacité et de symétrie (comme les valeurs de Shapley), mais avec un coût computationnel en $O(1)$.
 
 L'architecture force les variables à passer par 3 étapes de traitement supervisé :
 *   **Filtre Local** : Évaluation de la variable de manière isolée.
-*   **Décorrélation par projection** : Suppression mathématique de l'information déjà expliquée par d'autres variables.
+*   **Décorrélation par projection** : Suppression mathématique de l'information déjà expliquée par d'autres variables (avec priorité asymétrique).
 *   **Filtre Global Contextuel** : Évaluation de la variable en fonction de l'état du reste du système.
 
 ---
@@ -44,8 +44,8 @@ L'architecture force les variables à passer par 3 étapes de traitement supervi
             │     │     │          │
             ▼     ▼     ▼          ▼
        ┌────────────────────────────────┐
-       │     ÉTAPE 3 : DÉCORRÉLATION    │       ← Retrait orthogonal de
-       │     (Orthogonal Projection)    │          l'information redondante
+       │     ÉTAPE 3 : DÉCORRÉLATION    │       ← Retrait orthogonal avec
+       │     (Orthogonal Projection)    │          priorité asymétrique
        └────────────────────────────────┘
             │     │     │          │
            h₁'   h₂'   h₃'  ...   hₙ'   ∈ ℝᵈ
@@ -65,7 +65,7 @@ L'architecture force les variables à passer par 3 étapes de traitement supervi
                          ▼
                 ┌─────────────────┐
                 │ ÉTAPE 5 : HEAD  │              ← Tête LINÉAIRE stricte
-                │                 │                pour préserver l'additivité
+                │  (avec RMSNorm) │                pour préserver l'additivité
                 └─────────────────┘
                          │
                          ▼
@@ -76,7 +76,7 @@ L'architecture force les variables à passer par 3 étapes de traitement supervi
 
 ## Étape 1 — Tokenization (Projection Latente)
 
-**Équations corrigées :**
+**Équations :**
 
 Pour les variables numériques (Piecewise Linear Representation avec normalisation par bin) :
 Soit $t_i^{(m)}$ les seuils. La largeur du bin est $\Delta_i^{(m)} = t_i^{(m+1)} - t_i^{(m)}$.
@@ -102,20 +102,21 @@ $$\tilde{h}_i = s_i \cdot h_i \in \mathbb{R}^{B \times d}$$
 
 ## Étape 3 — Décorrélation par Projection Orthogonale
 
-**Objectif :** Supprimer la multicolinéarité de façon géométrique. Plutôt qu'une soustraction brute (et potentiellement asymétrique via ReLU), on retire de la variable $i$ la composante qui est *déjà expliquée* par la variable $j$.
+**Objectif :** Supprimer la multicolinéarité de façon géométrique sans risquer l'annulation mutuelle (collapse symétrique).
 
 **Équations :**
-On apprend une matrice globale d'allocation de redondance $W_{\text{supp}} \in \mathbb{R}^{n \times n}$.
-Pour s'assurer d'une compétition et éviter l'annulation mutuelle symétrique, on applique un softmax par ligne (masquant la diagonale) :
-$$\bar{W}_{\text{supp}} = \text{softmax}(\hat{W}_{\text{supp}} - \infty \cdot I_n, \text{dim}=-1)$$
+On définit des gates de suppression **indépendants**, asymétrisés par la norme des vecteurs pour imposer une priorité (le vecteur le plus "fort" inhibe le plus faible, pas l'inverse) :
+$$\rho_i = \|\tilde{h}_i\|_2$$
+$$\bar{w}_{ij} = \sigma(\hat{w}_{ij}) \cdot \sigma\big(\beta(\rho_j - \rho_i)\big) \in [0, 1]$$
 
 La soustraction se fait par projection de Gram-Schmidt pondérée :
-$$h_i' = \tilde{h}_i - \alpha \sum_{j \neq i} \bar{w}_{ij} \cdot \text{proj}_{\tilde{h}_j}(\tilde{h}_i)$$
+$$h_i^{\text{temp}} = \tilde{h}_i - \alpha \sum_{j \neq i} \bar{w}_{ij} \cdot \text{proj}_{\tilde{h}_j}(\tilde{h}_i)$$
 Où la projection est :
 $$\text{proj}_{\tilde{h}_j}(\tilde{h}_i) = \frac{\langle \tilde{h}_i, \tilde{h}_j \rangle}{\|\tilde{h}_j\|^2 + \epsilon} \tilde{h}_j$$
-*(L'hyperparamètre $\alpha \in [0,1]$ contrôle l'agressivité de la décorrélation, avec un warm-up conseillé à l'entraînement).*
 
-**Résultat :** $h_i'$ contient uniquement l'information de $\tilde{h}_i$ qui est orthogonale aux features redondantes sélectionnées par $\bar{W}_{\text{supp}}$.
+**Sécurité (Anti-Overshoot) :**
+Pour éviter que des suppressions cumulées n'inversent le sens du vecteur, on applique un clip a posteriori qui borne la norme :
+$$h_i' = h_i^{\text{temp}} \cdot \min\left(1, \frac{\|\tilde{h}_i\|_2}{\|h_i^{\text{temp}}\|_2 + \epsilon}\right)$$
 
 ---
 
@@ -135,33 +136,35 @@ $$z_i = g_i \cdot h_i' \in \mathbb{R}^{B \times d}$$
 
 ---
 
-## Étape 5 — Agrégation Additive & Tête Linéaire Stricte
+## Étape 5 — Agrégation Additive & Tête Linéaire (RMSNorm)
 
-**Objectif :** Préserver la décomposabilité mathématique exacte (additivité).
+**Objectif :** Préserver la décomposabilité mathématique exacte. L'utilisation de RMSNorm (Root Mean Square Normalization) au lieu de LayerNorm est cruciale : RMSNorm ne soustrait pas la moyenne, évitant ainsi le problème de recentrage croisé qui briserait l'additivité exacte.
 
 **Équations :**
 Agrégation des contributions :
 $$v = \sum_{i=1}^{n} z_i \in \mathbb{R}^{B \times d}$$
 
-Tête de décision linéaire (avec LayerNorm pour la stabilité) :
-$$\hat{y} = W_{\text{out}} \cdot \text{LN}(v) + b_{\text{out}} \in \mathbb{R}^{B \times d_{\text{out}}}$$
+RMSNorm (où $\text{rms}(v) = \sqrt{\frac{1}{d}\sum v_j^2 + \epsilon}$) :
+$$v_{\text{norm}} = \gamma \odot \frac{v}{\text{rms}(v)} + \beta$$
 
-> **Note cruciale :** Le LayerNorm est une transformation affine scalaire par sample : $\text{LN}(v) = \gamma \frac{v - \mu}{\sigma} + \beta$. Mathématiquement, l'opération reste décomposable : la contribution d'une variable à $\hat{y}$ est *exactement* traçable. L'absence de MLP (fonctions d'activation non-linéaires sur la somme) garantit que le modèle est un vrai GAM. L'expressivité non-linéaire vient des interactions dans le calcul de $z_i$ (projection et contexte $c_{-i}$).
+Tête de décision linéaire :
+$$\hat{y} = W_{\text{out}} \cdot v_{\text{norm}} + b_{\text{out}} \in \mathbb{R}^{B \times d_{\text{out}}}$$
 
 ---
 
-## Formule d'Importance Déterministe
+## Formule d'Importance et d'Attribution
 
-Puisque la tête de prédiction est linéaire (modulo LN), la véritable importance d'une variable pour une prédiction donnée n'est pas le produit des scalaires de gating, mais **la norme du vecteur de contribution qu'elle injecte dans la somme**.
+Puisque la tête de prédiction est linéaire (modulo le scaling par RMSNorm), l'attribution de chaque variable $x_i$ à la classe cible $k$ est déterministe et s'écrit analytiquement.
 
-$$\boxed{\text{Importance}_i = \|z_i\|_2 = \|g_i \cdot h_i'\|_2}$$
+Pour la classe ciblée $k$ :
+$$\hat{y}_k = \sum_{i=1}^n \text{Contribution}_{i \to k} + \text{Baseline}_k$$
 
-Cette formule est robuste :
-1. Si le filtre local coupe l'info ($s_i \to 0$), $\tilde{h}_i$ s'annule, donc $h_i'$ s'annule, $z_i \to 0$.
-2. Si la variable est totalement redondante, la projection (Étape 3) réduit la norme de $h_i'$ à 0.
-3. Si le contexte juge l'info non pertinente ($g_i \to 0$), $z_i \to 0$.
-4. **Elle prend en compte l'échelle réelle de l'embedding.**
+Avec :
+$$\boxed{\text{Contribution}_{i \to k} = \left( W_{\text{out}}[k, :] \odot \frac{\gamma}{\text{rms}(v)} \right) \cdot z_i}$$
+$$\text{Baseline}_k = W_{\text{out}}[k, :] \cdot \beta + b_{\text{out}, k}$$
 
-Pour obtenir la contribution directionnelle (signée) spécifique à la classe cible $k$ :
-$$\text{Contribution}_{i \to k} = \left( W_{\text{out}}[k, :] \odot \frac{\gamma}{\sigma} \right) \cdot z_i$$
-*(Ceci donne l'équivalent mathématique exact des valeurs de Shapley, calculable en $O(1)$ au forward pass).*
+Cette formulation **satisfait les axiomes d'efficacité (la somme est exacte) et de symétrie des valeurs de Shapley**, garantissant une fidélité explicative absolue pour une prédiction donnée, sans nécessiter d'approximations coûteuses.
+
+La magnitude globale d'importance d'une variable se mesure simplement par :
+$$\text{Importance}_i = \|z_i\|_2$$
+
