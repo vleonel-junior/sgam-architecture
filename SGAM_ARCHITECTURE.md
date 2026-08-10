@@ -167,7 +167,7 @@ Avec :
 $$\boxed{\text{Contribution}_{i \to k} = \left( W_{\text{out}}[k, :] \odot \frac{\gamma}{\text{rms}(v)} \right) \cdot z_i}$$
 $$\text{Baseline}_k = W_{\text{out}}[k, :] \cdot \beta + b_{\text{out}, k}$$
 
-Cette formulation donne une **décomposition additive exacte du forward pass tel qu'il a été calculé**, satisfaisant ainsi les **axiomes d'efficacité (la somme est exacte) et de symétrie de Shapley**, sans le coût combinatoire.
+Cette formulation garantit l'axiome d'efficacité de Shapley (la somme des contributions égale exactement la sortie) ainsi qu'une propriété de cohérence interne analogue à la symétrie (des contributions identiques produisent des attributions identiques), sans toutefois définir un jeu coopératif formel sur les coalitions de features.
 *Note de rigueur :* Il s'agit d'une attribution a posteriori (analogue en esprit à LRP), et non d'une suppression contrefactuelle. Mettre manuellement $z_i = 0$ recalculerait le dénominateur $\text{rms}(v)$, modifiant la prédiction d'une valeur légèrement différente de la contribution isolée calculée ici.
 
 La magnitude globale d'importance d'une variable se mesure simplement par :
