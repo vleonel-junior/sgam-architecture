@@ -161,15 +161,20 @@ $$\hat{y} = W_{\text{out}} \cdot v_{\text{norm}} + b_{\text{out}} \in \mathbb{R}
 Puisque la tête de prédiction est linéaire (modulo le scaling par RMSNorm), l'attribution de chaque variable $x_i$ à la classe cible $k$ est déterministe et s'écrit analytiquement.
 
 Pour la classe ciblée $k$ :
-$$\hat{y}_k = \sum_{i=1}^n \text{Contribution}_{i \to k} + \text{Baseline}_k$$
+
+$$\hat{y}_k = \sum_{i=1}^n \mathrm{Contrib}_{i \to k} + \mathrm{Baseline}_k$$
 
 Avec :
-$$\boxed{\text{Contribution}_{i \to k} = \left( W_{\text{out}}[k, :] \odot \frac{\gamma}{\text{rms}(v)} \right) \cdot z_i}$$
-$$\text{Baseline}_k = W_{\text{out}}[k, :] \cdot \beta + b_{\text{out}, k}$$
+
+$$\mathrm{Contrib}_{i \to k} = \left( W_{\mathrm{out}}[k, :] \odot \frac{\gamma}{\mathrm{rms}(v)} \right) \cdot z_i$$
+
+$$\mathrm{Baseline}_k = W_{\mathrm{out}}[k, :] \cdot \beta + b_{\mathrm{out}, k}$$
 
 Cette formulation garantit l'axiome d'efficacité de Shapley (la somme des contributions égale exactement la sortie) ainsi qu'une propriété de cohérence interne analogue à la symétrie (des contributions identiques produisent des attributions identiques), sans toutefois définir un jeu coopératif formel sur les coalitions de features.
-*Note de rigueur :* Il s'agit d'une attribution a posteriori (analogue en esprit à LRP), et non d'une suppression contrefactuelle. Mettre manuellement $z_i = 0$ recalculerait le dénominateur $\text{rms}(v)$, modifiant la prédiction d'une valeur légèrement différente de la contribution isolée calculée ici.
+
+*Note de rigueur :* Il s'agit d'une attribution a posteriori (analogue en esprit à LRP), et non d'une suppression contrefactuelle. Mettre manuellement $z_i = 0$ recalculerait le dénominateur $\mathrm{rms}(v)$, modifiant la prédiction d'une valeur légèrement différente de la contribution isolée calculée ici.
 
 La magnitude globale d'importance d'une variable se mesure simplement par :
-$$\text{Importance}_i = \|z_i\|_2$$
+
+$$\mathrm{Importance}_i = \|z_i\|_2$$
 
