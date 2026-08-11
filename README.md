@@ -15,7 +15,9 @@ SGAM garantit une propriété d'interprétabilité fondamentale : **l'attributio
 1. **Attribution Additive Exacte a posteriori** :
    Grâce à une tête de décision linéaire couplée à la normalisation **RMSNorm** ($\text{RMSNorm}(v) = \gamma \cdot v / \text{rms}(v) + \beta$), la prédiction $\hat{y}_k$ pour chaque classe k se décompose exactement en :
 
-   $$\hat{y}_k = \sum_i \text{Contrib}_{i \to k} + \text{Baseline}_k$$
+$$
+\hat{y}_k = \sum_i \text{Contrib}_{i \to k} + \text{Baseline}_k
+$$
 
    L'axiome d'efficacité de Shapley ($\sum_i \text{Contrib}_i + \text{Baseline} = \hat{y}$) est garanti au bit près (erreur $< 10^{-7}$).
 
