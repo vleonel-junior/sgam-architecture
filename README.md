@@ -6,24 +6,26 @@
 
 SGAM est une nouvelle architecture de réseau de neurones dédiée aux données tabulaires. Elle résout la dépendance combinatoire entre variables non pas par des mécanismes d'attention denses coûteux et opaques, mais par un **pipeline de filtrage séquentiel supervisé**.
 
-SGAM garantit une propriété d'interprétabilité fondamentale : **l'attribution additive exacte a posteriori**. La sortie du modèle se décompose de façon déterministe en une somme de contributions individuelles par feature, avec un coût computationnel en O(1).
+SGAM garantit une propriété d'interprétabilité fondamentale : **l'attribution additive exacte a posteriori**. La sortie du modèle se décompose de façon déterministe en une somme de contributions individuelles par feature, avec un coût computationnel en $O(1)$.
 
 ---
 
 ## 🌟 Innovations Principales
 
 1. **Attribution Additive Exacte a posteriori** :
-   Grâce à une tête de décision linéaire couplée à la normalisation **RMSNorm** (RMSNorm(v) = gamma * v / rms(v) + beta), la prédiction y_hat_k pour chaque classe k se décompose exactement en :
-   y_hat_k = sum_i Contrib_{i -> k} + Baseline_k
-   L'axiome d'efficacité de Shapley (sum Contrib_i + Baseline = y_hat) est garanti au bit près (erreur < 1e-7).
+   Grâce à une tête de décision linéaire couplée à la normalisation **RMSNorm** ($\text{RMSNorm}(v) = \gamma \cdot v / \text{rms}(v) + \beta$), la prédiction $\hat{y}_k$ pour chaque classe k se décompose exactement en :
+
+   $$\hat{y}_k = \sum_i \text{Contrib}_{i \to k} + \text{Baseline}_k$$
+
+   L'axiome d'efficacité de Shapley ($\sum_i \text{Contrib}_i + \text{Baseline} = \hat{y}$) est garanti au bit près (erreur $< 10^{-7}$).
 
 2. **Décorrélation Orthogonale Asymétrique (Étape 3)** :
-   Suppression géométrique de la multicolinéarité via des projections de Gram-Schmidt pondérées. Les représentations de plus forte norme ||h_tilde_i|| inhibent les variables plus faibles de façon asymétrique.
-   - **Clip Directionnel** : <h_i_temp, h_tilde_i> >= 0 pour interdire tout retournement de signe lors d'inhibitions cumulées.
-   - **Clip de Norme** : ||h_i'|| <= ||h_tilde_i|| pour prévenir l'overshoot d'amplitude.
+   Suppression géométrique de la multicolinéarité via des projections de Gram-Schmidt pondérées. Les représentations de plus forte norme $\|\tilde{h}_i\|$ inhibent les variables plus faibles de façon asymétrique.
+   - **Clip Directionnel** : $\langle h_i^{\text{temp}}, \tilde{h}_i \rangle \geq 0$ pour interdire tout retournement de signe lors d'inhibitions cumulées.
+   - **Clip de Norme** : $\|h_i'\| \leq \|\tilde{h}_i\|$ pour prévenir l'overshoot d'amplitude.
 
 3. **Filtrage Contextuel Leave-One-Out (Étape 4)** :
-   Calcul du contexte c_{-i} = 1/(n-1) * sum_{j != i} h'_j pour moduler l'importance d'une variable par rapport au reste du système sans auto-inclusion.
+   Calcul du contexte $c_{-i} = \dfrac{1}{n-1} \sum_{j \neq i} h'_j$ pour moduler l'importance d'une variable par rapport au reste du système sans auto-inclusion.
 
 4. **Support Natif des Variables Numériques & Catégorielles** :
    - Numériques : Tokenization PLR (Piecewise Linear Representation) avec limites de bins ajustables sur les quantiles empiriques réels (set_thresholds_from_data).
@@ -34,7 +36,7 @@ SGAM garantit une propriété d'interprétabilité fondamentale : **l'attributio
 
 ## 📁 Structure du Projet
 
-`	ext
+```text
 sgam-architecture/
 ├── SGAM_ARCHITECTURE.md        # Spécifications et preuves mathématiques complètes
 ├── sgam/                       # Package Python du modèle
@@ -52,13 +54,13 @@ sgam-architecture/
 ├── tests/                      # Suite de tests unitaires et d'intégration
 │   ├── test_decorrelation.py   # Test synthétique de suppression de redondance
 │   └── test_sgam_core.py       # Validation de l'axiome d'efficacité & duplication
-`
+```
 
 ---
 
 ## 🚀 Utilisation Rapide (PyTorch)
 
-`python
+```python
 import torch
 from sgam.models.sgam_core import SGAM
 
@@ -82,7 +84,7 @@ scores = model.get_importance_scores(x_num=x_num, x_cat=x_cat)
 print('Prédiction :', scores['y_hat'])
 print('Contributions par feature :', scores['contributions'].shape) # (8, 6, 1)
 print('Importance L2 :', scores['importance_l2'].shape) # (8, 6)
-`
+```
 
 ---
 
@@ -90,10 +92,10 @@ print('Importance L2 :', scores['importance_l2'].shape) # (8, 6)
 
 Pour exécuter la suite de tests unitaires et vérifier les propriétés mathématiques :
 
-`ash
+```bash
 python tests/test_decorrelation.py
 python tests/test_sgam_core.py
-`
+```
 
 ---
 
