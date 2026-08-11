@@ -9,7 +9,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 import zero
 
-from rtdl_revisiting_models import lib
+from benchmark import lib
 
 
 # %%

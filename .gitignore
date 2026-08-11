@@ -73,17 +73,17 @@ Desktop.ini
 *.tar.gz
 
 # Ignore all checkpoints in output
-rtdl_revisiting_models/output/**/checkpoint.pt
+benchmark/output/**/checkpoint.pt
 
 # Ignore all content in tuned/tuning directories, but keep specific files
-rtdl_revisiting_models/output/**/tuned/**
-!rtdl_revisiting_models/output/**/tuned/
-!rtdl_revisiting_models/output/**/tuned/**/
-!rtdl_revisiting_models/output/**/tuned/**/DONE
-!rtdl_revisiting_models/output/**/tuned/**/stats.json
+benchmark/output/**/tuned/**
+!benchmark/output/**/tuned/
+!benchmark/output/**/tuned/**/
+!benchmark/output/**/tuned/**/DONE
+!benchmark/output/**/tuned/**/stats.json
 
-rtdl_revisiting_models/output/**/tuning/**
-!rtdl_revisiting_models/output/**/tuning/
-!rtdl_revisiting_models/output/**/tuning/**/
-!rtdl_revisiting_models/output/**/tuning/**/DONE
-!rtdl_revisiting_models/output/**/tuning/**/stats.json
+benchmark/output/**/tuning/**
+!benchmark/output/**/tuning/
+!benchmark/output/**/tuning/**/
+!benchmark/output/**/tuning/**/DONE
+!benchmark/output/**/tuning/**/stats.json

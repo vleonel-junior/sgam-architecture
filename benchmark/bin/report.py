@@ -4,8 +4,8 @@ from pathlib import Path
 import lib
 
 # Configuration
-ROOT_DIR = Path("rtdl_revisiting_models/output")
-OUTPUT_JSON = "rtdl_revisiting_models/report.json"
+ROOT_DIR = Path("benchmark/output")
+OUTPUT_JSON = "benchmark/report.json"
 
 def get_task_type_and_metric(dataset_dir: Path):
     """Trouve le type de tâche et la métrique associée pour un dataset."""

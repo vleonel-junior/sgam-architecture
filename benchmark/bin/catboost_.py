@@ -7,7 +7,7 @@ import pandas as pd
 import zero
 from catboost import CatBoostClassifier, CatBoostRegressor
 
-from rtdl_revisiting_models import lib
+from benchmark import lib
 
 args, output = lib.load_config()
 args['model']['random_seed'] = args['seed']

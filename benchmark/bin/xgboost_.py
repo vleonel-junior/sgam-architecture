@@ -7,7 +7,7 @@ import numpy as np
 import zero
 from xgboost import XGBClassifier, XGBRegressor
 
-from rtdl_revisiting_models import lib
+from benchmark import lib
 
 # Suppress warnings
 warnings.filterwarnings("ignore", message=".*suggest_loguniform.*deprecated.*")

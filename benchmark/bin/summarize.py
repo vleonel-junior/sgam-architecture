@@ -10,7 +10,7 @@ def main():
     (moyennes, écarts-types, tests de significativité) et affiche un tableau de
     synthèse au format Markdown, similaire à celui de l'article de recherche.
     """
-    report_path = Path("rtdl_revisiting_models/report.json")
+    report_path = Path("benchmark/report.json")
     if not report_path.exists():
         print(f"Erreur : Le fichier '{report_path}' est introuvable.")
         print("Veuillez d'abord exécuter le script 'report.py' pour le générer.")

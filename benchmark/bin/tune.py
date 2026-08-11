@@ -15,7 +15,7 @@ import optuna.trial
 import torch
 import zero
 
-from rtdl_revisiting_models import lib
+from benchmark import lib
 
 # Suppress optuna deprecation warnings
 warnings.filterwarnings("ignore", message=".*suggest_loguniform.*deprecated.*")
