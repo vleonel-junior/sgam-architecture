@@ -6,7 +6,7 @@
 
 ## Philosophie : Attribution Additive Exacte et Filtrage Supervisé
 
-Le SGAM est conçu pour résoudre l'explosion combinatoire des données tabulaires non pas par un mélange dense (attention), mais par un **pipeline de filtrage séquentiel**. 
+Le SGAM est conçu pour résoudre l'explosion combinatoire des données tabulaires non pas par un mélange dense (attention), mais par un **pipeline de filtrage séquentiel**.
 
 Contrairement à un modèle purement additif naïf (GAM classique) où les variables sont indépendantes, SGAM permet aux variables d'interagir dynamiquement (via la suppression de redondance et le contexte global) **avant** de les agréger. Cela lui confère une grande expressivité.
 
@@ -26,7 +26,7 @@ L'architecture force les variables à passer par 3 étapes de traitement supervi
             │     │     │          │
             ▼     ▼     ▼          ▼
        ┌────────────────────────────────┐
-       │     ÉTAPE 1 : TOKENIZATION     │       ← Projection latente + 
+       │     ÉTAPE 1 : TOKENIZATION     │       ← Projection latente +
        │     (PLR normalisé + Embed)    │          Calibration
        └────────────────────────────────┘
             │     │     │          │
@@ -78,12 +78,21 @@ L'architecture force les variables à passer par 3 étapes de traitement supervi
 
 Pour les variables numériques (Piecewise Linear Representation avec normalisation par bin) :
 Soit $t_i^{(m)}$ les seuils. La largeur du bin est $\Delta_i^{(m)} = t_i^{(m+1)} - t_i^{(m)}$.
-$$\text{PLR}_i^{(m)}(x_i) = \frac{\max\!\big(0, \min(\Delta_i^{(m)}, x_i - t_i^{(m)})\big)}{\Delta_i^{(m)}} \in [0, 1]$$
-$$h_i^{\text{raw}} = W_i^{\text{plr}} \cdot \text{PLR}_i(x_i) + b_i^{\text{plr}} \in \mathbb{R}^{B \times d}$$
+
+$$
+\text{PLR}_i^{(m)}(x_i) = \frac{\max\!\big(0, \min(\Delta_i^{(m)}, x_i - t_i^{(m)})\big)}{\Delta_i^{(m)}} \in [0, 1]
+$$
+
+$$
+h_i^{\text{raw}} = W_i^{\text{plr}} \cdot \text{PLR}_i(x_i) + b_i^{\text{plr}} \in \mathbb{R}^{B \times d}
+$$
 
 **Calibration inter-features :**
 Pour s'assurer que les filtres suivants n'agissent pas sur de simples différences d'échelle dues à l'initialisation, chaque feature passe par sa propre Batch Normalization :
-$$h_i = \text{BatchNorm1d}_i(h_i^{\text{raw}}) \in \mathbb{R}^{B \times d}$$
+
+$$
+h_i = \text{BatchNorm1d}_i(h_i^{\text{raw}}) \in \mathbb{R}^{B \times d}
+$$
 
 ---
 
@@ -92,9 +101,16 @@ $$h_i = \text{BatchNorm1d}_i(h_i^{\text{raw}}) \in \mathbb{R}^{B \times d}$$
 **Objectif :** Attribuer un score $s_i$ basé sur la représentation de la variable $i$ en isolation. Ce gate est supervisé (le gradient remonte depuis la loss finale). Il apprend à down-weighter les états banals ou bruités spécifiques à cette feature.
 
 **Équations :**
-$$s_i = \sigma(w_{s, i}^\top h_i + b_{s, i}) \in \mathbb{R}^{B}$$
+
+$$
+s_i = \sigma(w_{s, i}^\top h_i + b_{s, i}) \in \mathbb{R}^{B}
+$$
+
 *(Note: $w_{s, i}$ est spécifique à chaque feature, prenant en compte la BN précédente)*
-$$\tilde{h}_i = s_i \cdot h_i \in \mathbb{R}^{B \times d}$$
+
+$$
+\tilde{h}_i = s_i \cdot h_i \in \mathbb{R}^{B \times d}
+$$
 
 ---
 
@@ -104,21 +120,43 @@ $$\tilde{h}_i = s_i \cdot h_i \in \mathbb{R}^{B \times d}$$
 
 **Équations :**
 On définit des gates de suppression **indépendants**, asymétrisés par la norme des vecteurs pour imposer une priorité (le vecteur le plus "fort" inhibe le plus faible, pas l'inverse) :
-$$\rho_i = \|\tilde{h}_i\|_2$$
-$$\bar{w}_{ij} = \sigma(\hat{w}_{ij}) \cdot \sigma\big(\tau(\rho_j - \rho_i)\big) \in [0, 1]$$
+
+$$
+\rho_i = \|\tilde{h}_i\|_2
+$$
+
+$$
+\bar{w}_{ij} = \sigma(\hat{w}_{ij}) \cdot \sigma\big(\tau(\rho_j - \rho_i)\big) \in [0, 1]
+$$
 
 L'intensité globale d'inhibition est strictement bornée :
-$$\alpha = \sigma(\hat{\alpha}) \in [0, 1]$$
+
+$$
+\alpha = \sigma(\hat{\alpha}) \in [0, 1]
+$$
 
 La soustraction se fait par projection de Gram-Schmidt pondérée :
-$$h_i^{\text{temp}} = \tilde{h}_i - \alpha \sum_{j \neq i} \bar{w}_{ij} \cdot \text{proj}_{\tilde{h}_j}(\tilde{h}_i)$$
+
+$$
+h_i^{\text{temp}} = \tilde{h}_i - \alpha \sum_{j \neq i} \bar{w}_{ij} \cdot \text{proj}_{\tilde{h}_j}(\tilde{h}_i)
+$$
+
 Où la projection est :
-$$\text{proj}_{\tilde{h}_j}(\tilde{h}_i) = \frac{\langle \tilde{h}_i, \tilde{h}_j \rangle}{\|\tilde{h}_j\|^2 + \epsilon} \tilde{h}_j$$
+
+$$
+\text{proj}_{\tilde{h}_j}(\tilde{h}_i) = \frac{\langle \tilde{h}_i, \tilde{h}_j \rangle}{\|\tilde{h}_j\|^2 + \epsilon} \tilde{h}_j
+$$
 
 **Sécurité (Anti-Overshoot et Directionnelle) :**
 Le clip de norme protège la magnitude ($\|h_i'\| \le \|\tilde{h}_i\|$), mais ne protège pas contre un retournement complet de signe si les suppressions s'accumulent (ex: $h_i^{\text{temp}} = -\tilde{h}_i$). Pour garantir la fidélité, on applique d'abord un clip directionnel (on met à 0 si le vecteur s'est retourné), puis le clip de norme :
-$$h_i^{\text{dir}} = h_i^{\text{temp}} \text{ si } \langle h_i^{\text{temp}}, \tilde{h}_i \rangle \ge 0, \text{ sinon } 0$$
-$$h_i' = h_i^{\text{dir}} \cdot \min\left(1, \frac{\|\tilde{h}_i\|_2}{\|h_i^{\text{dir}}\|_2 + \epsilon}\right)$$
+
+$$
+h_i^{\text{dir}} = h_i^{\text{temp}} \text{ si } \langle h_i^{\text{temp}}, \tilde{h}_i \rangle \ge 0, \text{ sinon } 0
+$$
+
+$$
+h_i' = h_i^{\text{dir}} \cdot \min\left(1, \frac{\|\tilde{h}_i\|_2}{\|h_i^{\text{dir}}\|_2 + \epsilon}\right)
+$$
 
 ---
 
@@ -128,13 +166,22 @@ $$h_i' = h_i^{\text{dir}} \cdot \min\left(1, \frac{\|\tilde{h}_i\|_2}{\|h_i^{\te
 
 **Équations :**
 Calcul du contexte **Leave-One-Out** (pour empêcher l'auto-inclusion) :
-$$c_{-i} = \frac{1}{n-1}\sum_{j \neq i} h_j' \in \mathbb{R}^{B \times d}$$
+
+$$
+c_{-i} = \frac{1}{n-1}\sum_{j \neq i} h_j' \in \mathbb{R}^{B \times d}
+$$
 
 Calcul du gate contextuel :
-$$g_i = \sigma\!\left(W_{g, i} \cdot [c_{-i} \;\|\; h_i'] + b_{g, i}\right) \in \mathbb{R}^{B}$$
+
+$$
+g_i = \sigma\!\left(W_{g, i} \cdot [c_{-i} \;\|\; h_i'] + b_{g, i}\right) \in \mathbb{R}^{B}
+$$
 
 Contribution finale de la variable :
-$$z_i = g_i \cdot h_i' \in \mathbb{R}^{B \times d}$$
+
+$$
+z_i = g_i \cdot h_i' \in \mathbb{R}^{B \times d}
+$$
 
 ---
 
@@ -144,13 +191,22 @@ $$z_i = g_i \cdot h_i' \in \mathbb{R}^{B \times d}$$
 
 **Équations :**
 Agrégation des contributions :
-$$v = \sum_{i=1}^{n} z_i \in \mathbb{R}^{B \times d}$$
+
+$$
+v = \sum_{i=1}^{n} z_i \in \mathbb{R}^{B \times d}
+$$
 
 RMSNorm (où $\text{rms}(v) = \sqrt{\frac{1}{d}\sum v_j^2 + \epsilon}$) :
-$$v_{\text{norm}} = \gamma \odot \frac{v}{\text{rms}(v)} + \beta$$
+
+$$
+v_{\text{norm}} = \gamma \odot \frac{v}{\text{rms}(v)} + \beta
+$$
 
 Tête de décision linéaire :
-$$\hat{y} = W_{\text{out}} \cdot v_{\text{norm}} + b_{\text{out}} \in \mathbb{R}^{B \times d_{\text{out}}}$$
+
+$$
+\hat{y} = W_{\text{out}} \cdot v_{\text{norm}} + b_{\text{out}} \in \mathbb{R}^{B \times d_{\text{out}}}
+$$
 
 ---
 
@@ -160,13 +216,19 @@ Puisque la tête de prédiction est linéaire (modulo le scaling par RMSNorm), l
 
 Pour la classe ciblée $k$ :
 
-$$\hat{y}_k = \sum_{i=1}^n \mathrm{Contrib}_{i \to k} + \mathrm{Baseline}_k$$
+$$
+\hat{y}_k = \sum_{i=1}^n \mathrm{Contrib}_{i \to k} + \mathrm{Baseline}_k
+$$
 
 Avec :
 
-$$\mathrm{Contrib}_{i \to k} = \left( W_{\mathrm{out}}[k, :] \odot \frac{\gamma}{\mathrm{rms}(v)} \right) \cdot z_i$$
+$$
+\mathrm{Contrib}_{i \to k} = \left( W_{\mathrm{out}}[k, :] \odot \frac{\gamma}{\mathrm{rms}(v)} \right) \cdot z_i
+$$
 
-$$\mathrm{Baseline}_k = W_{\mathrm{out}}[k, :] \cdot \beta + b_{\mathrm{out}, k}$$
+$$
+\mathrm{Baseline}_k = W_{\mathrm{out}}[k, :] \cdot \beta + b_{\mathrm{out}, k}
+$$
 
 Cette formulation garantit l'axiome d'efficacité de Shapley (la somme des contributions égale exactement la sortie) ainsi qu'une propriété de cohérence interne analogue à la symétrie (des contributions identiques produisent des attributions identiques), sans toutefois définir un jeu coopératif formel sur les coalitions de features.
 
@@ -174,5 +236,6 @@ Cette formulation garantit l'axiome d'efficacité de Shapley (la somme des contr
 
 La magnitude globale d'importance d'une variable se mesure simplement par :
 
-$$\mathrm{Importance}_i = \|z_i\|_2$$
-
+$$
+\mathrm{Importance}_i = \|z_i\|_2
+$$
