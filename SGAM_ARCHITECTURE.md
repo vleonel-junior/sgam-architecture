@@ -2,8 +2,6 @@
 
 *Filtrage Séquentiel et Résolution de la Multicolinéarité pour Données Tabulaires*
 
-*(Version finale corrigée : RMSNorm et Attribution Exacte a posteriori)*
-
 ---
 
 ## Philosophie : Attribution Additive Exacte et Filtrage Supervisé
