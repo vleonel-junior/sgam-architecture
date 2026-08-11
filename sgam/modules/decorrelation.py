@@ -1,4 +1,4 @@
-﻿import torch
+import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
@@ -20,7 +20,8 @@ class AsymmetricOrthogonalDecorrelation(nn.Module):
         self.tau = nn.Parameter(torch.ones(1))
         
         # Intensité globale de soustraction alpha (bornée dans [0, 1])
-        self.alpha_logit = nn.Parameter(torch.tensor(0.0))
+        # Initialisé à -3.0 (alpha ~ 0.05 au démarrage pour servir de warm-up progressif)
+        self.alpha_logit = nn.Parameter(torch.tensor(-3.0))
         
     def forward(self, h: torch.Tensor) -> torch.Tensor:
         """
