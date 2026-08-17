@@ -50,8 +50,18 @@ sgam-architecture/
 │       └── sgam_core.py        # Modèle SGAM complet & extraction d'attribution
 ├── benchmark/                  # Framework d'expérimentation et de benchmark tabulaire
 │   ├── bin/
-│   │   ├── sgam.py             # Script d'entraînement SGAM sur jeux de données
-│   │   ├── mlp.py, tune.py...  # Baselines et utilitaires de benchmark
+│   │   ├── sgam.py             # Script d'entraînement SGAM
+│   │   ├── catboost_.py        # CatBoost (GBDT)
+│   │   ├── xgboost_.py         # XGBoost (GBDT)
+│   │   ├── lightgbm_.py        # LightGBM (GBDT)
+│   │   ├── ebm.py              # Explainable Boosting Machine (InterpretML)
+│   │   ├── nam.py              # Neural Additive Models
+│   │   ├── tabkan.py           # TabKAN (Kolmogorov-Arnold Networks)
+│   │   ├── tabr.py             # TabR (Yandex, ICLR 2024)
+│   │   ├── tabpfn.py           # TabPFN v2 (Nature 2025)
+│   │   └── tune.py             # Utilitaires d'hyperparamètres
+│   ├── interpretability/
+│   │   └── compare_attributions.py  # Comparaison SGAM vs SHAP vs LIME
 │   ├── lib/                    # Loaders de données et métriques
 ├── tests/                      # Suite de tests unitaires et d'intégration
 │   ├── test_decorrelation.py   # Test synthétique de suppression de redondance
