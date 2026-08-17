@@ -65,12 +65,11 @@ if D.is_regression:
     model = LGBMRegressor(**model_kwargs)
     predict = model.predict
 else:
-    if D.is_multiclass:
-        predict = lambda model, x: model.predict_proba(x)
-    else:
-        predict = lambda model, x: model.predict_proba(x)[:, 1]
-    
     model = LGBMClassifier(**model_kwargs)
+    if D.is_multiclass:
+        predict = model.predict_proba
+    else:
+        predict = lambda x: model.predict_proba(x)[:, 1]
 
 # Fit model
 timer = zero.Timer()
@@ -89,10 +88,7 @@ np.save(output / "feature_importances.npy", model.feature_importances_)
 
 stats['metrics'] = {}
 for part in X:
-    if D.is_regression:
-        p = predict(X[part])
-    else:
-        p = predict(model, X[part])
+    p = predict(X[part])
     
     stats['metrics'][part] = lib.calculate_metrics(
         D.info['task_type'], Y[part], p, 'probs', y_info

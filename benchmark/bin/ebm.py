@@ -60,12 +60,11 @@ if D.is_regression:
     model = ExplainableBoostingRegressor(**model_kwargs)
     predict = model.predict
 else:
-    if D.is_multiclass:
-        predict = lambda model, x: model.predict_proba(x)
-    else:
-        predict = lambda model, x: model.predict_proba(x)[:, 1]
-    
     model = ExplainableBoostingClassifier(**model_kwargs)
+    if D.is_multiclass:
+        predict = model.predict_proba
+    else:
+        predict = lambda x: model.predict_proba(x)[:, 1]
 
 # Fit model
 timer = zero.Timer()
@@ -73,24 +72,23 @@ timer.run()
 print("Training EBM...")
 model.fit(X[lib.TRAIN], Y[lib.TRAIN])
 
-# Save model and metrics (EBM doesn't have a standard save_model, use pickle or joblib if needed, here we just save importances)
-importances = []
-explanation = model.explain_global()
-# EBM explanation data gives feature importances
-# Wait, let's carefully extract importances if available
+# Save model importances
 try:
-    # Typical way to get EBM global importances
-    importances = explanation.data()['scores']
+    explanation = model.explain_global()
+    # InterpretML EBM: importances are in explanation.data(0)['scores'] per feature
+    importances = [explanation.data(i)['scores'].mean() for i in range(len(explanation.data()['names']))]
     np.save(output / "feature_importances.npy", np.array(importances))
 except Exception as e:
     print(f"Could not extract feature importances: {e}")
+    # Fallback: save empty
+    try:
+        np.save(output / "feature_importances.npy", np.array([]))
+    except Exception:
+        pass
 
 stats['metrics'] = {}
 for part in X:
-    if D.is_regression:
-        p = predict(X[part])
-    else:
-        p = predict(model, X[part])
+    p = predict(X[part])
     
     stats['metrics'][part] = lib.calculate_metrics(
         D.info['task_type'], Y[part], p, 'probs', y_info

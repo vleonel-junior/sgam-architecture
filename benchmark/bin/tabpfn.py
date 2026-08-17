@@ -4,7 +4,11 @@ import warnings
 
 import numpy as np
 import zero
-from tabpfn import TabPFNClassifier, TabPFNRegressor
+from tabpfn import TabPFNClassifier
+try:
+    from tabpfn import TabPFNRegressor
+except ImportError:
+    TabPFNRegressor = None
 
 from benchmark import lib
 
@@ -55,15 +59,17 @@ model_kwargs.pop('random_state', None)  # TabPFN might not accept random_state n
 
 # Create model
 if D.is_regression:
+    if TabPFNRegressor is None:
+        print("TabPFNRegressor not available in this version. Skipping.")
+        import sys; sys.exit(0)
     model = TabPFNRegressor(**model_kwargs)
     predict = model.predict
 else:
-    if D.is_multiclass:
-        predict = lambda model, x: model.predict_proba(x)
-    else:
-        predict = lambda model, x: model.predict_proba(x)[:, 1]
-    
     model = TabPFNClassifier(**model_kwargs)
+    if D.is_multiclass:
+        predict = model.predict_proba
+    else:
+        predict = lambda x: model.predict_proba(x)[:, 1]
 
 # Fit model
 timer = zero.Timer()
@@ -75,10 +81,7 @@ model.fit(X[lib.TRAIN], Y[lib.TRAIN])
 
 stats['metrics'] = {}
 for part in X:
-    if D.is_regression:
-        p = predict(X[part])
-    else:
-        p = predict(model, X[part])
+    p = predict(X[part])
     
     stats['metrics'][part] = lib.calculate_metrics(
         D.info['task_type'], Y[part], p, 'probs', y_info

@@ -15,9 +15,16 @@ if str(project_root) not in sys.path:
 
 from benchmark import lib
 try:
-    from nam.models import NAM, Classifier, Regressor
+    from nam.config import defaults
+    from nam.models.nam import NAM
+    _NAM_AVAILABLE = True
 except ImportError:
-    NAM, Classifier, Regressor = None, None, None
+    try:
+        from nam.models import NAM
+        _NAM_AVAILABLE = True
+    except ImportError:
+        NAM = None
+        _NAM_AVAILABLE = False
 
 args, output = lib.load_config()
 
@@ -41,16 +48,17 @@ X = D.build_X(
     seed=args['seed'],
 )
 
-# Merge X_num and X_cat for NAM
+# Merge X_num and X_cat for NAM (needs flat continuous input)
 if isinstance(X, tuple):
     X_num, X_cat = X
     X_merged = {}
-    for part in X_num:
+    available_parts = X_num if X_num is not None else X_cat
+    for part in available_parts:
         if X_num is not None and X_cat is not None:
             X_merged[part] = np.concatenate([X_num[part], X_cat[part]], axis=1)
         elif X_num is not None:
             X_merged[part] = X_num[part]
-        elif X_cat is not None:
+        else:
             X_merged[part] = X_cat[part]
 else:
     X_merged = X
@@ -59,7 +67,7 @@ zero.random.seed(args['seed'])
 Y, y_info = D.build_y(args['data'].get('y_policy'))
 lib.dump_pickle(y_info, output / 'y_info.pickle')
 
-X_tensors = {k: lib.to_tensors(v) for k, v in X_merged.items()}
+X_tensors = lib.to_tensors(X_merged)
 Y_tensors = lib.to_tensors(Y)
 device = lib.get_device()
 
@@ -77,20 +85,21 @@ epoch_size = stats['epoch_size'] = math.ceil(train_size / batch_size)
 n_features = X_merged['train'].shape[1]
 d_out = D.info['n_classes'] if D.is_multiclass else 1
 
-if NAM is None:
+if not _NAM_AVAILABLE:
     print("NAM is not properly installed. Skipping.")
     sys.exit(0)
 
 print("Building NAM Model...")
-# nam python package typically takes num_inputs
-model = Classifier(
+# NAM: one sub-network per feature
+model_kwargs = args.get('model', {})
+nam_hidden = model_kwargs.get('hidden_sizes', [64, 64])
+nam_dropout = model_kwargs.get('dropout', 0.1)
+
+model = NAM(
+    config=None,
+    name='NAM',
     num_inputs=n_features,
-    num_units=args.get('model', {}).get('num_units', 64),
-    dropout=args.get('model', {}).get('dropout', 0.1)
-) if not D.is_regression else Regressor(
-    num_inputs=n_features,
-    num_units=args.get('model', {}).get('num_units', 64),
-    dropout=args.get('model', {}).get('dropout', 0.1)
+    num_units=nam_hidden[0] if isinstance(nam_hidden, list) else nam_hidden,
 )
 
 model = model.to(device)
@@ -123,7 +132,10 @@ def evaluate(parts):
             preds = []
             for idx in lib.IndexLoader(D.size(part), args['training']['eval_batch_size'], False, device):
                 batch_x = X_tensors[part][idx]
-                out, _ = model(batch_x) # nam usually returns (logits, ann_out)
+                out = model(batch_x)
+                # NAM can return (logits, ann_out) or just logits depending on version
+                if isinstance(out, tuple):
+                    out = out[0]
                 preds.append(out)
             preds = torch.cat(preds).cpu().numpy()
             if D.is_binclass:
@@ -132,9 +144,9 @@ def evaluate(parts):
             
             metrics[part] = lib.calculate_metrics(
                 D.info['task_type'],
-                Y[part].numpy(),
+                Y[part],  # Y[part] is already np.ndarray
                 preds,
-                predictions['train'] if part != 'train' else None,
+                'logits' if not D.is_regression else 'probs',
                 y_info,
             )
     return metrics, predictions
@@ -147,7 +159,9 @@ for batch in stream:
     optimizer.zero_grad()
     idx = batch
     
-    y_hat, _ = model(X_tensors['train'][idx])
+    y_hat = model(X_tensors['train'][idx])
+    if isinstance(y_hat, tuple):
+        y_hat = y_hat[0]
     if not D.is_multiclass:
         y_hat = y_hat.squeeze(-1)
         

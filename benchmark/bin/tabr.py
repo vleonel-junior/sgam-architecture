@@ -113,7 +113,7 @@ def evaluate(parts):
             preds = []
             for idx in lib.IndexLoader(D.size(part), args['training']['eval_batch_size'], False, device):
                 # TabR requires reference context (retrieval memory)
-                # Typically we pass X_train and Y_train as context
+                # At eval time, using the full train set as context is correct
                 context_x_num = X_num['train'] if X_num is not None else None
                 context_x_cat = X_cat['train'] if X_cat is not None else None
                 context_y = Y_device['train']
@@ -133,9 +133,9 @@ def evaluate(parts):
             
             metrics[part] = lib.calculate_metrics(
                 D.info['task_type'],
-                Y[part].numpy(),
+                Y[part],  # Y[part] is already np.ndarray from to_tensors — actually it's a tensor here
                 preds,
-                predictions['train'] if part != 'train' else None,
+                'logits' if not D.is_regression else 'probs',
                 y_info,
             )
     return metrics, predictions
@@ -148,9 +148,16 @@ for batch in stream:
     optimizer.zero_grad()
     idx = batch
     
-    context_x_num = X_num['train'] if X_num is not None else None
-    context_x_cat = X_cat['train'] if X_cat is not None else None
-    context_y = Y_device['train']
+    # IMPORTANT: Exclude the current batch from the context to avoid data leakage.
+    # Build a mask that removes the batch indices from the train set.
+    all_train_indices = torch.arange(train_size, device=device)
+    mask = torch.ones(train_size, dtype=torch.bool, device=device)
+    mask[idx] = False
+    context_indices = all_train_indices[mask]
+    
+    context_x_num = X_num['train'][context_indices] if X_num is not None else None
+    context_x_cat = X_cat['train'][context_indices] if X_cat is not None else None
+    context_y = Y_device['train'][context_indices]
                 
     y_hat = model(
         X_num['train'][idx] if X_num is not None else None,

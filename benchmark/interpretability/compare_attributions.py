@@ -39,11 +39,17 @@ def compare_attributions(dataset_name="california_housing"):
     if not isinstance(X, tuple):
         X = (X, None)
     
-    Y, y_info = D.build_y("standard")
+    y_policy = 'mean_std' if D.is_regression else None
+    Y, y_info = D.build_y(y_policy)
     
     X_num, X_cat = X
     n_num_features = 0 if X_num is None else X_num['train'].shape[1]
-    categories = lib.get_categories(X_cat)
+    # get_categories attend des tensors, pas des ndarray
+    if X_cat is not None:
+        X_cat_tensors = lib.to_tensors(X_cat)
+        categories = lib.get_categories(X_cat_tensors)
+    else:
+        categories = None
     d_out = D.info['n_classes'] if D.is_multiclass else 1
 
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
@@ -59,7 +65,9 @@ def compare_attributions(dataset_name="california_housing"):
     
     # Just initialize thresholds for testing speed
     if X_num is not None:
-        sgam_model.tokenizer.num_tokenizer.set_thresholds_from_data(lib.to_tensors(X_num['train']))
+        sgam_model.tokenizer.num_tokenizer.set_thresholds_from_data(
+            torch.tensor(X_num['train'], dtype=torch.float32).to(device)
+        )
 
     # Sample batch
     batch_size = min(100, D.size(lib.TRAIN))
@@ -67,21 +75,34 @@ def compare_attributions(dataset_name="california_housing"):
     x_cat_batch = torch.tensor(X_cat['train'][:batch_size], dtype=torch.long).to(device) if X_cat is not None else None
     
     start_time = time.time()
-    # Forward pass to get importances
-    _, attributions = sgam_model.forward_with_attributions(x_num_batch, x_cat_batch)
+    # Forward pass to get importances via la méthode correcte
+    scores = sgam_model.get_importance_scores(x_num_batch, x_cat_batch)
+    attributions = scores['contributions']  # (B, n_features, d_out)
     sgam_time = time.time() - start_time
     print(f"   Temps pour {batch_size} samples: {sgam_time:.6f} secondes")
     print(f"   Coût amorti: {sgam_time/batch_size*1000:.4f} ms / sample")
+    print(f"   Vérification efficacité: sum(contrib) + baseline ≈ y_hat")
+    reconstruction = attributions.sum(dim=1) + scores['baseline']
+    error = (reconstruction - scores['y_hat']).abs().max().item()
+    print(f"   Erreur max de reconstruction: {error:.2e}")
     print("   Note: Les attributions SGAM sont calculées en O(1) directement lors du forward pass et sont 100% exactes.")
 
     print("\n2. CatBoost + SHAP (TreeSHAP)")
     cb_model = CatBoostRegressor(iterations=100, verbose=0, random_seed=42) if D.is_regression else CatBoostClassifier(iterations=100, verbose=0, random_seed=42)
     # Prepare flat data for CatBoost
-    X_train_flat = X_num['train'] if X_num is not None else X_cat['train']
+    n_num = 0
     if X_num is not None and X_cat is not None:
+        n_num = X_num['train'].shape[1]
         X_train_flat = np.concatenate([X_num['train'], X_cat['train']], axis=1)
+        cat_feature_indices = list(range(n_num, X_train_flat.shape[1]))
+    elif X_num is not None:
+        X_train_flat = X_num['train']
+        cat_feature_indices = []
+    else:
+        X_train_flat = X_cat['train']
+        cat_feature_indices = list(range(X_train_flat.shape[1]))
     
-    cb_model.fit(X_train_flat, Y['train'])
+    cb_model.fit(X_train_flat, Y['train'], cat_features=cat_feature_indices if cat_feature_indices else None)
     
     explainer = shap.TreeExplainer(cb_model)
     X_batch_flat = X_train_flat[:batch_size]

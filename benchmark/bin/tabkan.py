@@ -37,25 +37,17 @@ X = D.build_X(
     cat_min_frequency=args['data'].get('cat_min_frequency', 0.0),
     seed=args['seed'],
 )
-# For pykan, we merge num and cat if they exist
-X_merged = {}
-for part in X:
-    if isinstance(X[part], dict):
-        # We assume X[part] is already merged by lib.Dataset if using OHE, but build_X might return a dict for num and cat
-        pass
-
-# Actually, if we use cat_policy='ohe', build_X returns merged numpy arrays if we don't separate them? 
-# In sgam.py, it expects tuple. But let's check lib.Dataset. If it returns a tuple or dict.
-# Usually lib.Dataset.build_X returns a dictionary {part: array} or a tuple of dicts (X_num, X_cat).
+# For pykan, we merge num and cat into flat continuous input
 if isinstance(X, tuple):
     X_num, X_cat = X
     X_merged = {}
-    for part in X_num:
+    available_parts = X_num if X_num is not None else X_cat
+    for part in available_parts:
         if X_num is not None and X_cat is not None:
             X_merged[part] = np.concatenate([X_num[part], X_cat[part]], axis=1)
         elif X_num is not None:
             X_merged[part] = X_num[part]
-        elif X_cat is not None:
+        else:
             X_merged[part] = X_cat[part]
 else:
     X_merged = X
@@ -64,7 +56,7 @@ zero.random.seed(args['seed'])
 Y, y_info = D.build_y(args['data'].get('y_policy'))
 lib.dump_pickle(y_info, output / 'y_info.pickle')
 
-X_tensors = {k: lib.to_tensors(v) for k, v in X_merged.items()}
+X_tensors = lib.to_tensors(X_merged)
 Y_tensors = lib.to_tensors(Y)
 device = lib.get_device()
 
@@ -130,9 +122,9 @@ def evaluate(parts):
             
             metrics[part] = lib.calculate_metrics(
                 D.info['task_type'],
-                Y[part].numpy(),
+                Y[part],  # Y[part] is already np.ndarray
                 preds,
-                predictions['train'] if part != 'train' else None,
+                'logits' if not D.is_regression else 'probs',
                 y_info,
             )
     return metrics, predictions
